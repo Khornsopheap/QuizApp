@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "RetrofitDemo"
+rootProject.name = "mobileforquizapp"
 include(":app")
  

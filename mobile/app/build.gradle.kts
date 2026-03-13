@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.retrofitdemo"
+    namespace = "com.example.mobileforquizapp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.retrofitdemo"
+        applicationId = "com.example.mobileforquizapp"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -46,9 +46,6 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.androidx.core.ktx)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

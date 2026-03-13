@@ -1,4 +1,4 @@
-package com.example.retrofitdemo
+package com.example.mobileforquizapp
 
 import org.junit.Test
 
