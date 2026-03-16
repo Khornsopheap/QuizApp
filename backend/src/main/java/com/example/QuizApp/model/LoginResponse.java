@@ -7,6 +7,7 @@ public class LoginResponse {
     public LoginResponse(String token, String message) {
         this.token = token;
         this.message = message;
+
     }
 
     public String getToken() {
@@ -24,4 +25,5 @@ public class LoginResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }
