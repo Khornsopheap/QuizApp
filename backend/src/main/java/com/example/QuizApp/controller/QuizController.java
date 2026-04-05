@@ -1,4 +1,4 @@
-package com.example.QuizApp;
+package com.example.QuizApp.controller;
 
 
 import com.example.QuizApp.model.Quiz;

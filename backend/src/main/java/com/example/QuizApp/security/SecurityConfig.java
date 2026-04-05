@@ -15,7 +15,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/quizzes").authenticated()
+                        .requestMatchers("/api/quizzes/submit").authenticated()
+                        .requestMatchers("/api/admin/quizzes").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
