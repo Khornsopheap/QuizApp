@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quiz Details"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:paddingBottom="6dp"/>
+
+        <!-- Question input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/questionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter question"/>
+
+        <!-- Options -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Options"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/option1Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option 1"/>
+
+        <EditText
+            android:id="@+id/option2Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option 2"/>
+
+        <EditText
+            android:id="@+id/option3Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option 3"/>
+
+        <EditText
+            android:id="@+id/option4Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option 4"/>
+
+        <!-- Correct answer -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correct Answer"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/correctAnswerInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter correct answer"/>
+
+        <!-- Submit button -->
+        <Button
+            android:id="@+id/submitQuizButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Quiz"
+            android:paddingTop="16dp"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</ScrollView>

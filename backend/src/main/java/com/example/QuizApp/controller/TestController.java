@@ -1,7 +1,10 @@
 package com.example.QuizApp;
 
 import com.example.QuizApp.model.LoginResponse;
+import com.example.QuizApp.model.QuizSubmission;
+import com.example.QuizApp.model.ResultResponse;
 import com.example.QuizApp.model.User;
+import com.example.QuizApp.service.QuizService;
 import com.example.QuizApp.service.UserService;
 import com.example.QuizApp.security.JwtUtil;
 import org.slf4j.Logger;

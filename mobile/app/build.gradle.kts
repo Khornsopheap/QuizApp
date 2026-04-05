@@ -33,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+//    ===
     buildFeatures{
         viewBinding = true
     }
@@ -45,7 +46,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.jjwt.api)
+    implementation(libs.jjwt.impl)
+    implementation(libs.jjwt.jackson)
     testImplementation(libs.junit)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
