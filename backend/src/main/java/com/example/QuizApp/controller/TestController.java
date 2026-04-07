@@ -22,16 +22,20 @@ public class TestController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody User user) {
         User dbUser = userService.findByUsername(user.getUsername());
-        log.info("username: "+user.getUsername());
-        log.info("password: "+user.getPassword());
+        log.info("username: " + user.getUsername());
+        log.info("password: " + user.getPassword());
+
         if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
-            String token = JwtUtil.generateToken(user.getUsername());
-            log.info("token: "+token);
+            // Use role from DB, not from request
+            String token = JwtUtil.generateToken(dbUser.getUsername(), dbUser.getRole());
+            log.info("token: " + token);
 
             return ResponseEntity.ok(new LoginResponse(token, "Login successful"));
         }
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new LoginResponse(null, "Invalid credentials"));
     }
+
 
 }
