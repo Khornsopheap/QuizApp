@@ -2,6 +2,7 @@ package com.example.mobileforquizapp.network
 
 import com.example.mobileforquizapp.login.model.LoginResponse
 import com.example.mobileforquizapp.login.model.User
+import com.example.mobileforquizapp.quiz.model.Question
 import com.example.mobileforquizapp.quiz.model.Quiz
 import com.example.mobileforquizapp.quiz.model.QuizSubmission
 import com.example.mobileforquizapp.quiz.model.ResultResponse
@@ -13,7 +14,7 @@ interface ApiService {
     fun login(@Body user: User): Call<LoginResponse>
 
     @GET("quizzes")
-    fun getQuizzes(@Header("Authorization") token: String): Call<List<Quiz>>
+    fun getQuizzes(@Header("Authorization") token: String): Call<List<Question>>
 
     @POST("quizzes/submit")
     fun submitQuiz(
@@ -24,6 +25,18 @@ interface ApiService {
     @POST("admin/quizzes/add")
     fun addQuiz(
         @Header("Authorization") token: String,
+        @Body question: Question
+    ): Call<Question>
+
+    @POST("quizzes")
+    fun createQuiz(
+        @Header("Authorization") token: String,
         @Body quiz: Quiz
     ): Call<Quiz>
+
+    @GET("quizzes/{id}/questions")
+    fun getQuestionsByQuizId(
+        @Header("Authorization") token: String,
+        @Path("id") quizId: Long
+    ): Call<List<Question>>
 }

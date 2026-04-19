@@ -8,14 +8,15 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileforquizapp.R
-import com.example.mobileforquizapp.quiz.model.Quiz
+import com.example.mobileforquizapp.quiz.model.Question
 
 class QuizAdapter(
-    val quizzes: List<Quiz>
+    private val questions: List<Question>,
+    private val onItemClick: (Question) -> Unit   // ✅ new parameter
 ) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
 
     // Track selected answers for each quiz
-    val userAnswers = MutableList(quizzes.size) { "" }
+    private val userAnswers = MutableList(questions.size) { "" }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,21 +25,21 @@ class QuizAdapter(
     }
 
     override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
-        val quiz = quizzes[position]
+        val quiz = questions[position]
         holder.bind(quiz, position)
     }
 
-    override fun getItemCount(): Int = quizzes.size
+    override fun getItemCount(): Int = questions.size
 
     inner class QuizViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val questionText: TextView = itemView.findViewById(R.id.questionText)
         private val optionsGroup: RadioGroup = itemView.findViewById(R.id.optionsGroup)
 
-        fun bind(quiz: Quiz, position: Int) {
-            questionText.text = quiz.question
+        fun bind(question: Question, position: Int) {
+            questionText.text = question.question
             optionsGroup.removeAllViews()
 
-            quiz.options.forEach { option ->
+            question.options.forEach { option ->
                 val radioButton = RadioButton(itemView.context).apply {
                     text = option
                     id = View.generateViewId()
@@ -54,12 +55,17 @@ class QuizAdapter(
                 val selectedButton = group.findViewById<RadioButton>(checkedId)
                 userAnswers[position] = selectedButton.text.toString()
             }
+
+            // ✅ handle item click
+            itemView.setOnClickListener {
+                onItemClick(question)
+            }
         }
     }
 
     fun getSelectedAnswersMap(): Map<Long, String> {
         val answersMap = mutableMapOf<Long, String>()
-        quizzes.forEachIndexed { index, quiz ->
+        questions.forEachIndexed { index, quiz ->
             val selected = userAnswers[index]
             if (selected.isNotEmpty() && quiz.id != null) {
                 answersMap[quiz.id!!] = selected
@@ -67,5 +73,4 @@ class QuizAdapter(
         }
         return answersMap
     }
-
 }

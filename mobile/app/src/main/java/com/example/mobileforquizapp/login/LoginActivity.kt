@@ -8,27 +8,33 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mobileforquizapp.MainActivity
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.login.model.LoginResponse
 import com.example.mobileforquizapp.login.model.User
 import com.example.mobileforquizapp.network.RetrofitClient
-import com.example.mobileforquizapp.quiz.QuizActivity
+import com.example.mobileforquizapp.quiz.AdminDashboardActivity
+import com.example.mobileforquizapp.quiz.UserDashboardActivity
+import com.example.mobileforquizapp.util.AuthUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginActivity : AppCompatActivity() {
 
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("LoginActivity", "1")
         setContentView(R.layout.login_ui)
+        Log.d("LoginActivity", "2")
 
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
         val loginButton = findViewById<Button>(R.id.loginButton)
 
+        Log.d("LoginActivity", "onCreate called")
+
         loginButton.setOnClickListener {
+            Log.d("LoginActivity", "Login button clicked")
             val username = usernameInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
@@ -53,8 +59,18 @@ class LoginActivity : AppCompatActivity() {
                             prefs.edit().putString("jwt_token", token).apply()
                             Log.d("LoginActivity", "Token saved in SharedPreferences")
 
-                            val intent = Intent(this@LoginActivity, QuizActivity::class.java)
-                            startActivity(intent)
+                            val role = AuthUtils.getRoleFromToken(token)
+                            Log.d("LoginActivity", "Role decoded: $role")
+
+                            if (role == "ADMIN") {
+                                val intent = Intent(this@LoginActivity, AdminDashboardActivity::class.java)
+                                intent.putExtra("jwt_token", token)
+                                startActivity(intent)
+                            } else {
+                                val intent = Intent(this@LoginActivity, UserDashboardActivity::class.java)
+                                intent.putExtra("jwt_token", token)
+                                startActivity(intent)
+                            }
                             finish()
                         } else {
                             Toast.makeText(this@LoginActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()

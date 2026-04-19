@@ -3,17 +3,17 @@ package com.example.mobileforquizapp.quiz
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.mobileforquizapp.quiz.model.Quiz
+import com.example.mobileforquizapp.quiz.model.Question
 
 class QuizPagerAdapter(
     activity: AppCompatActivity,
-    private val quizzes: List<Quiz>
+    private val questions: List<Question>
 ) : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = quizzes.size
+    override fun getItemCount(): Int = questions.size
 
     override fun createFragment(position: Int): Fragment {
-        val quiz = quizzes[position]
+        val quiz = questions[position]
         return QuizFragment.newInstance(
             quiz.question,
             ArrayList(quiz.options),

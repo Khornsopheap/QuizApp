@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
-import com.example.mobileforquizapp.quiz.model.Quiz
+import com.example.mobileforquizapp.quiz.model.Question
 import com.example.mobileforquizapp.quiz.model.QuizSubmission
 import com.example.mobileforquizapp.quiz.model.ResultResponse
 import retrofit2.Call
@@ -37,8 +37,8 @@ class QuizActivity : AppCompatActivity() {
 
         // Fetch quizzes from backend
         RetrofitClient.apiService.getQuizzes("Bearer $token")
-            .enqueue(object : Callback<List<Quiz>> {
-                override fun onResponse(call: Call<List<Quiz>>, response: Response<List<Quiz>>) {
+            .enqueue(object : Callback<List<Question>> {
+                override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
                     Log.d("QuizActivity", "Response code: ${response.code()}")
 
                     if (response.isSuccessful) {
@@ -56,13 +56,12 @@ class QuizActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<Quiz>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Question>>, t: Throwable) {
                     Log.e("QuizActivity", "Network error", t)
                     Toast.makeText(this@QuizActivity, "Error: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
 
-        // Submit button
         findViewById<com.google.android.material.button.MaterialButton>(R.id.submitButton).setOnClickListener {
             submitAnswers(token)
         }
@@ -77,13 +76,14 @@ class QuizActivity : AppCompatActivity() {
         if (viewPager.currentItem < viewPager.adapter!!.itemCount - 1) {
             viewPager.currentItem += 1
         } else {
-            val token = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            val token = getSharedPreferences("MyApp", MODE_PRIVATE)
                 .getString("jwt_token", "") ?: ""
             submitAnswers(token)
         }
     }
 
     private fun submitAnswers(token: String) {
+        
         val submission = QuizSubmission(answersMap)
 
         // Log the token and submission
