@@ -1,29 +1,49 @@
 package com.example.QuizApp.service;
 
-import com.example.QuizApp.model.Quiz;
-import com.example.QuizApp.model.QuizSubmission;
+import com.example.QuizApp.model.Question;
 import com.example.QuizApp.model.ResultResponse;
+import com.example.QuizApp.repository.QuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class QuizService {
-    public List<Quiz> getAllQuizzes() {
-        List<Quiz> quizzes = new ArrayList<>();
-        quizzes.add(new Quiz(1L, "What is 2+2?", Arrays.asList("3","4","5"), "4"));
-        quizzes.add(new Quiz(2L, "Capital of France?", Arrays.asList("Berlin","Paris","London"), "Paris"));
 
-        return quizzes;
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    public List<Question> getAllQuizzes() {
+        return questionRepository.findAll();
     }
 
-    public ResultResponse evaluateQuiz(QuizSubmission submission) {
-        // Dummy evaluation logic
-        int score = 0;
-        if (submission.getAnswers().containsValue("4")) score++;
-        if (submission.getAnswers().containsValue("Paris")) score++;
-        return new ResultResponse(score, "Quiz evaluated successfully");
+    public ResultResponse calculateScore(Map<Long, String> answers) {
+        int total = 0;
+
+        for (Map.Entry<Long, String> entry : answers.entrySet()) {
+            Long quizId = entry.getKey();
+            String userAnswer = entry.getValue();
+
+            Question question = questionRepository.findById(quizId).orElse(null);
+            if (question != null) {
+                if (question.getCorrectAnswer().equalsIgnoreCase(userAnswer)) {
+                    total += question.getScore();
+                }
+            }
+        }
+
+        return new ResultResponse(total, "Score has been calculated");
     }
+
+
+    public Question findById(Long id) {
+        Optional<Question> quiz = questionRepository.findById(id);
+        return quiz.orElse(null); // return null if not found
+    }
+
+    public Question saveQuiz(Question question) {
+        return questionRepository.save(question);
+    }
+
 }

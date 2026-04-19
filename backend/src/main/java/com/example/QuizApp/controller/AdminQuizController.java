@@ -1,7 +1,7 @@
 package com.example.QuizApp.controller;
 
-import com.example.QuizApp.model.Quiz;
-import com.example.QuizApp.repository.QuizRepository;
+import com.example.QuizApp.model.Question;
+import com.example.QuizApp.repository.QuestionRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +10,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/quizzes")
 public class AdminQuizController {
-    private final QuizRepository quizRepository;
+    private final QuestionRepository questionRepository;
 
-    public AdminQuizController(QuizRepository quizRepository) {
-        this.quizRepository = quizRepository;
+    public AdminQuizController(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Quiz> addQuiz(@RequestBody Quiz quiz) {
-        Quiz saved = quizRepository.save(quiz);
+    public ResponseEntity<Question> addQuiz(@RequestBody Question question) {
+        Question saved = questionRepository.save(question);
         return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public List<Quiz> getAllQuizzes() {
-        return quizRepository.findAll();
+    public List<Question> getAllQuizzes() {
+        return questionRepository.findAll();
     }
 }

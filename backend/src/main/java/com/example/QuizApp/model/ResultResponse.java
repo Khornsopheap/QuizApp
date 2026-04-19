@@ -6,7 +6,7 @@ public class ResultResponse {
 
     public ResultResponse(int score, String message) {
         this.score = score;
-        this.message = message;
+        this.message = null;
     }
 
     public int getScore() {

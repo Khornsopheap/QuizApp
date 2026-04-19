@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/quizzes")
-public class QuizController {
+public class QuestionController {
     @Autowired
     private QuizService quizService;
 
@@ -41,9 +41,5 @@ public class QuizController {
     public Question createQuiz(@RequestBody Question question) {
         return quizService.saveQuiz(question);
     }
-
-
-
-
 
 }

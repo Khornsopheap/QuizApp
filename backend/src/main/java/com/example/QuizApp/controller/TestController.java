@@ -26,7 +26,6 @@ public class TestController {
         log.info("password: " + user.getPassword());
 
         if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
-            // Use role from DB, not from request
             String token = JwtUtil.generateToken(dbUser.getUsername(), dbUser.getRole());
             log.info("token: " + token);
 
