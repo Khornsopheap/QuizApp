@@ -74,7 +74,7 @@ class QuizActivity : AppCompatActivity() {
     private fun submitAnswers(token: String) {
         val quizId = intent.getLongExtra("quiz_id", -1)
         val submission = QuizSubmission(quizId, answersMap)
-        RetrofitClient.apiService.submitQuiz("Bearer $token", submission)
+        RetrofitClient.apiService.submitQuiz("Bearer $token",quizId, submission)
             .enqueue(object : Callback<ResultResponse> {
                 override fun onResponse(call: Call<ResultResponse>, response: Response<ResultResponse>) {
                     if (response.isSuccessful) {

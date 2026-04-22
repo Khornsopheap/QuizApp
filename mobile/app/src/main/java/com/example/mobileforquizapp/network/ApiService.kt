@@ -17,11 +17,13 @@ interface ApiService {
     fun getQuizzes(@Header("Authorization") token: String): Call<List<Quiz>>
 
 
-    @POST("quizzes/submit")
+    @POST("quizzes/{id}/submit")
     fun submitQuiz(
         @Header("Authorization") token: String,
+        @Path("id") quizId: Long,
         @Body submission: QuizSubmission
     ): Call<ResultResponse>
+
 
     @POST("admin/quizzes/add")
     fun addQuiz(
