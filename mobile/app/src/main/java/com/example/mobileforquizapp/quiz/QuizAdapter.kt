@@ -12,7 +12,7 @@ import com.example.mobileforquizapp.quiz.model.Question
 
 class QuizAdapter(
     private val questions: List<Question>,
-    private val onItemClick: (Question) -> Unit   // ✅ new parameter
+    private val onItemClick: (Question) -> Unit
 ) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
 
     // Track selected answers for each quiz
@@ -39,7 +39,8 @@ class QuizAdapter(
             questionText.text = question.question
             optionsGroup.removeAllViews()
 
-            question.options.forEach { option ->
+            val safeOptions = question.options ?: emptyList()
+            safeOptions.forEach { option ->
                 val radioButton = RadioButton(itemView.context).apply {
                     text = option
                     id = View.generateViewId()
@@ -56,11 +57,11 @@ class QuizAdapter(
                 userAnswers[position] = selectedButton.text.toString()
             }
 
-            // ✅ handle item click
             itemView.setOnClickListener {
                 onItemClick(question)
             }
         }
+
     }
 
     fun getSelectedAnswersMap(): Map<Long, String> {

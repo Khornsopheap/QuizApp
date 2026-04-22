@@ -2,11 +2,13 @@ package com.example.mobileforquizapp.quiz
 
 import android.content.Intent
 import android.os.Bundle
-import com.example.mobileforquizapp.R
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
-import android.widget.*
-import com.example.mobileforquizapp.quiz.model.Question
+import com.example.mobileforquizapp.quiz.model.Quiz
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,16 +21,27 @@ class AdminDashboardActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("MyApp", MODE_PRIVATE)
         val token = prefs.getString("jwt_token", null)
 
+        val recyclerView = findViewById<RecyclerView>(R.id.adminQuizRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         // Fetch quizzes
         RetrofitClient.apiService.getQuizzes("Bearer $token")
-            .enqueue(object : Callback<List<Question>> {
-                override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
+            .enqueue(object : Callback<List<Quiz>> {
+                override fun onResponse(call: Call<List<Quiz>>, response: Response<List<Quiz>>) {
                     if (response.isSuccessful) {
                         val quizzes = response.body() ?: emptyList()
-                        // TODO: bind quizzes to RecyclerView adapter
+                        recyclerView.adapter = QuizListAdapter(quizzes) { quiz ->
+                            val intent = Intent(this@AdminDashboardActivity, QuizActivity::class.java)
+                            intent.putExtra("quiz_id", quiz.id)
+                            intent.putExtra("jwt_token", token)
+                            startActivity(intent)
+                        }
                     }
                 }
-                override fun onFailure(call: Call<List<Question>>, t: Throwable) {}
+
+                override fun onFailure(call: Call<List<Quiz>>, t: Throwable) {
+                    // handle error
+                }
             })
 
         // Create quiz button

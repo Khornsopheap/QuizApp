@@ -14,7 +14,8 @@ interface ApiService {
     fun login(@Body user: User): Call<LoginResponse>
 
     @GET("quizzes")
-    fun getQuizzes(@Header("Authorization") token: String): Call<List<Question>>
+    fun getQuizzes(@Header("Authorization") token: String): Call<List<Quiz>>
+
 
     @POST("quizzes/submit")
     fun submitQuiz(

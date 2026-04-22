@@ -26,50 +26,39 @@ class QuizActivity : AppCompatActivity() {
 
         val prefs = getSharedPreferences("MyApp", MODE_PRIVATE)
         val token = prefs.getString("jwt_token", null)
+        val quizId = intent.getLongExtra("quiz_id", -1)
 
-        if (token.isNullOrEmpty()) {
-            Log.e("QuizActivity", "No token found in SharedPreferences")
-            Toast.makeText(this, "Please log in again", Toast.LENGTH_SHORT).show()
+        if (token.isNullOrEmpty() || quizId == -1L) {
+            Toast.makeText(this, "Invalid session, please log in again", Toast.LENGTH_SHORT).show()
             return
         }
 
-        Log.d("QuizActivity", "Token being sent: Bearer $token")
-
-        // Fetch quizzes from backend
-        RetrofitClient.apiService.getQuizzes("Bearer $token")
+        RetrofitClient.apiService.getQuestionsByQuizId("Bearer $token", quizId)
             .enqueue(object : Callback<List<Question>> {
                 override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
-                    Log.d("QuizActivity", "Response code: ${response.code()}")
-
                     if (response.isSuccessful) {
-                        val quizzes = response.body() ?: emptyList()
-                        Log.d("QuizActivity", "Quizzes received: $quizzes")
-
-                        if (quizzes.isNotEmpty()) {
-                            viewPager.adapter = QuizPagerAdapter(this@QuizActivity, quizzes)
+                        val questions = response.body() ?: emptyList()
+                        if (questions.isNotEmpty()) {
+                            viewPager.adapter = QuizPagerAdapter(this@QuizActivity, questions)
                         } else {
-                            Toast.makeText(this@QuizActivity, "No quizzes available", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@QuizActivity, "No questions available", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Log.e("QuizActivity", "Error body: ${response.errorBody()?.string()}")
                         Toast.makeText(this@QuizActivity, "Failed: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<Question>>, t: Throwable) {
-                    Log.e("QuizActivity", "Network error", t)
                     Toast.makeText(this@QuizActivity, "Error: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
 
-        findViewById<com.google.android.material.button.MaterialButton>(R.id.submitButton).setOnClickListener {
-            submitAnswers(token)
-        }
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.submitButton)
+            .setOnClickListener { submitAnswers(token) }
     }
 
-    fun saveAnswer(quizId: Long, answer: String) {
-        answersMap[quizId] = answer
-        Log.d("QuizActivity", "Answer saved: $quizId -> $answer")
+    fun saveAnswer(questionId: Long, answer: String) {
+        answersMap[questionId] = answer
     }
 
     fun goToNextQuestion() {
@@ -83,50 +72,27 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun submitAnswers(token: String) {
-        
-        val submission = QuizSubmission(answersMap)
-
-        // Log the token and submission
-        Log.d("QuizActivity", "Submitting with token: Bearer $token")
-        Log.d("QuizActivity", "Submitting answers object: $submission")
-
-        // Convert to JSON for clarity
-        val submissionJson = com.google.gson.Gson().toJson(submission)
-        Log.d("QuizActivity", "Submitting answers JSON: $submissionJson")
-
+        val quizId = intent.getLongExtra("quiz_id", -1)
+        val submission = QuizSubmission(quizId, answersMap)
         RetrofitClient.apiService.submitQuiz("Bearer $token", submission)
             .enqueue(object : Callback<ResultResponse> {
                 override fun onResponse(call: Call<ResultResponse>, response: Response<ResultResponse>) {
-                    Log.d("QuizActivity", "Submit response code: ${response.code()}")
-
                     if (response.isSuccessful) {
                         val result = response.body()
-                        Log.d("QuizActivity", "Submit success: $result")
                         Toast.makeText(
                             this@QuizActivity,
                             "Score: ${result?.score}/${result?.total}\n${result?.feedback}",
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
-                        val errorBody = response.errorBody()?.string()
-                        Log.e("QuizActivity", "Submit error body: $errorBody")
-                        Toast.makeText(
-                            this@QuizActivity,
-                            "Submit failed: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@QuizActivity, "Submit failed: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ResultResponse>, t: Throwable) {
-                    Log.e("QuizActivity", "Submit network error: ${t.message}", t)
-                    Toast.makeText(
-                        this@QuizActivity,
-                        "Error: ${t.localizedMessage}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@QuizActivity, "Error: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
     }
-
 }
+

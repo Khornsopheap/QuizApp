@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.model.Question
+import com.example.mobileforquizapp.quiz.model.Quiz
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,11 +27,11 @@ class UserDashboardActivity : AppCompatActivity() {
 
         // Fetch quizzes
         RetrofitClient.apiService.getQuizzes("Bearer $token")
-            .enqueue(object : Callback<List<Question>> {
-                override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
+            .enqueue(object : Callback<List<Quiz>> {
+                override fun onResponse(call: Call<List<Quiz>>, response: Response<List<Quiz>>) {
                     if (response.isSuccessful) {
                         val quizzes = response.body() ?: emptyList()
-                        recyclerView.adapter = QuizAdapter(quizzes) { quiz ->
+                        recyclerView.adapter = QuizListAdapter(quizzes) { quiz ->
                             val intent = Intent(this@UserDashboardActivity, QuizActivity::class.java)
                             intent.putExtra("quiz_id", quiz.id)
                             intent.putExtra("jwt_token", token)
@@ -38,7 +39,12 @@ class UserDashboardActivity : AppCompatActivity() {
                         }
                     }
                 }
-                override fun onFailure(call: Call<List<Question>>, t: Throwable) {}
+
+                override fun onFailure(call: Call<List<Quiz>>, t: Throwable) {
+                    // handle error
+                }
             })
+
+
     }
 }

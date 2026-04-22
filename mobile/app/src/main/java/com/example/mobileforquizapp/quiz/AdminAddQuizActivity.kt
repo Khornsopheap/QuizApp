@@ -42,7 +42,6 @@ class AdminAddQuizActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         correctAnswerSpinner.adapter = adapter
 
-        // Function to refresh spinner whenever options change
         fun refreshSpinner() {
             val options = listOf(
                 option1Input.text.toString(),
