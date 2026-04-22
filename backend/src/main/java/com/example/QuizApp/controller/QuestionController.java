@@ -28,11 +28,11 @@ public class QuestionController {
         return ResponseEntity.ok(questionRepository.findAll());
     }
 
-    @PostMapping("/submit")
-    @PreAuthorize("hasRole('USER')")
-    public ResultResponse submitAnswers(@RequestBody QuizSubmission submission) {
-        return quizService.calculateScore(submission.getAnswers());
-    }
+//    @PostMapping("/submit")
+//    @PreAuthorize("hasRole('USER')")
+//    public ResultResponse submitAnswers(@RequestBody QuizSubmission submission) {
+//        return quizService.calculateScore(submission.getAnswers());
+//    }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
