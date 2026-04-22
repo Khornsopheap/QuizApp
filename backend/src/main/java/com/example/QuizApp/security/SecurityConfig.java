@@ -19,6 +19,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/quizzes/submit").hasAnyRole("USER","ADMIN")
                         .requestMatchers("/api/quizzes").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/quizzes").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/questions").hasRole("ADMIN")
+                        .requestMatchers("/api/questions/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);

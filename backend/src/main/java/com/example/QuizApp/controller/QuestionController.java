@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/quizzes")
+@RequestMapping("/api/questions")
 public class QuestionController {
     @Autowired
     private QuizService quizService;
@@ -22,12 +22,10 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    // GET /api/quizzes
     @GetMapping
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<List<Question>> getQuizzes() {
-        List<Question> questions = quizService.getAllQuizzes();
-        return ResponseEntity.ok(questions);
+    public ResponseEntity<List<Question>> getAllQuestions() {
+        return ResponseEntity.ok(questionRepository.findAll());
     }
 
     @PostMapping("/submit")
@@ -36,10 +34,10 @@ public class QuestionController {
         return quizService.calculateScore(submission.getAnswers());
     }
 
-    @PostMapping("/addQuiz")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Question createQuiz(@RequestBody Question question) {
-        return quizService.saveQuiz(question);
+    @PostMapping
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public Question createQuestion(@RequestBody Question question) {
+        return questionRepository.save(question);
     }
-
 }
+
