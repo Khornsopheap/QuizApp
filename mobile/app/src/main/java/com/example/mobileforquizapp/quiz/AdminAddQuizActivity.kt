@@ -78,9 +78,11 @@ class AdminAddQuizActivity : AppCompatActivity() {
 
             val selectedAnswer = correctAnswerSpinner.selectedItem?.toString() ?: ""
             val score = scoreInput.text.toString().toIntOrNull() ?: 0
+            val quizId = intent.getLongExtra("quiz_id", -1)
 
             val question = Question(
                 id = null,
+                quizId = quizId,   // ✅ include quizId
                 question = questionInput.text.toString(),
                 options = options,
                 correctAnswer = selectedAnswer,

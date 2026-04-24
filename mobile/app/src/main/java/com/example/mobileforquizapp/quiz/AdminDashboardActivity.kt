@@ -31,7 +31,7 @@ class AdminDashboardActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val quizzes = response.body() ?: emptyList()
                         recyclerView.adapter = QuizListAdapter(quizzes) { quiz ->
-                            val intent = Intent(this@AdminDashboardActivity, QuizActivity::class.java)
+                            val intent = Intent(this@AdminDashboardActivity, AdminQuizDetailActivity::class.java)
                             intent.putExtra("quiz_id", quiz.id)
                             intent.putExtra("jwt_token", token)
                             startActivity(intent)

@@ -29,8 +29,8 @@
         <activity android:name=".quiz.UserDashboardActivity"/>
         <activity android:name=".quiz.ResultActivity"/>
         <activity android:name=".quiz.CreateQuizActivity"/>
-
-
+        <activity android:name=".quiz.AdminQuizDetailActivity"/>
+        <activity android:name=".quiz.EditQuestionActivity"/>
 
     </application>
 </manifest>

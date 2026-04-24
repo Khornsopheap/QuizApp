@@ -42,4 +42,25 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") quizId: Long
     ): Call<List<Question>>
+
+    @PUT("questions/{id}")
+    fun updateQuestion(
+        @Header("Authorization") token: String,
+        @Path("id") questionId: Long,
+        @Body question: Question
+    ): Call<Question>
+
+    @DELETE("questions/{id}")
+    fun deleteQuestion(
+        @Header("Authorization") token: String,
+        @Path("id") questionId: Long
+    ): Call<Void>
+
+
+    @DELETE("questions/{id}")
+    fun deleteQuestion(
+        @Header("Authorization") token: String,
+        @Path("id") questionId: Long?
+    ): Call<Void>
+
 }
