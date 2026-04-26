@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF4EC">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🧠 QuizMaster"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#2C2C2A"
+        android:padding="16dp"/>
+
+    <!-- ✅ RecyclerView takes remaining space, not all space -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userQuizRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"/>
+
+    <!-- ✅ Join Game button always visible at bottom -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/joinGameButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🎮 Join Game"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="#FF6B00"
+        app:cornerRadius="12dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
+</LinearLayout>
