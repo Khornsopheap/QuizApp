@@ -31,6 +31,12 @@
         <activity android:name=".quiz.CreateQuizActivity"/>
         <activity android:name=".quiz.AdminQuizDetailActivity"/>
         <activity android:name=".quiz.EditQuestionActivity"/>
+        <activity android:name=".quiz.AddQuestionActivity"/>
+        <activity android:name=".quiz.RoomCodeActivity" />
+        <activity android:name=".quiz.JoinRoomActivity" />
+        <activity android:name=".quiz.LiveQuizActivity" />
+        <activity android:name=".quiz.LeaderboardActivity" />
+        <activity android:name=".quiz.QuizListActivity" />
 
     </application>
 </manifest>

@@ -13,7 +13,7 @@ import com.example.mobileforquizapp.login.model.LoginResponse
 import com.example.mobileforquizapp.login.model.User
 import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.AdminDashboardActivity
-import com.example.mobileforquizapp.quiz.UserDashboardActivity
+import com.example.mobileforquizapp.quiz.QuizListActivity
 import com.example.mobileforquizapp.util.AuthUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
-        val loginButton = findViewById<Button>(R.id.loginButton)
+        val loginButton   = findViewById<Button>(R.id.loginButton)
 
         Log.d("LoginActivity", "onCreate called")
 
@@ -54,33 +54,63 @@ class LoginActivity : AppCompatActivity() {
                         Log.d("LoginActivity", "Token received: $token")
 
                         if (!token.isNullOrEmpty()) {
-                            val prefs: SharedPreferences = getSharedPreferences("MyApp", MODE_PRIVATE)
-                            prefs.edit().putString("jwt_token", token).apply()
-                            Log.d("LoginActivity", "Token saved in SharedPreferences")
 
-                            val role = AuthUtils.getRoleFromToken(token)
+                            val role    = AuthUtils.getRoleFromToken(token)
+                            val isAdmin = role == "ADMIN"
                             Log.d("LoginActivity", "Role decoded: $role")
 
-                            if (role == "ADMIN") {
-                                val intent = Intent(this@LoginActivity, AdminDashboardActivity::class.java)
+                            // ✅ Save both token and isAdmin to SharedPreferences
+                            val prefs: SharedPreferences =
+                                getSharedPreferences("MyApp", MODE_PRIVATE)
+                            prefs.edit()
+                                .putString("jwt_token", token)
+                                .putBoolean("is_admin", isAdmin) // ✅ saved here
+                                .apply()
+                            Log.d("LoginActivity", "Token and role saved")
+
+                            if (isAdmin) {
+                                // ✅ Admin goes to AdminDashboardActivity (your existing screen)
+                                val intent = Intent(
+                                    this@LoginActivity,
+                                    AdminDashboardActivity::class.java
+                                )
                                 intent.putExtra("jwt_token", token)
+                                intent.putExtra("is_admin", true)
                                 startActivity(intent)
                             } else {
-                                val intent = Intent(this@LoginActivity, UserDashboardActivity::class.java)
+                                // ✅ User goes to QuizListActivity (new screen with Join Game)
+                                val intent = Intent(
+                                    this@LoginActivity,
+                                    QuizListActivity::class.java
+                                )
                                 intent.putExtra("jwt_token", token)
+                                intent.putExtra("is_admin", false)
                                 startActivity(intent)
                             }
                             finish()
+
                         } else {
-                            Toast.makeText(this@LoginActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Invalid credentials",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     } else {
-                        Toast.makeText(this@LoginActivity, "Login failed: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Login failed: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Toast.makeText(this@LoginActivity, "Network error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Network error: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Log.e("LoginActivity", "Network error", t)
                 }
             })

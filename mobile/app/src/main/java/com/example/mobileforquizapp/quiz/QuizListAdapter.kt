@@ -7,34 +7,36 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.quiz.model.Quiz
+import com.google.android.material.button.MaterialButton
 
 class QuizListAdapter(
     private val quizzes: List<Quiz>,
-    private val onItemClick: (Quiz) -> Unit
-) : RecyclerView.Adapter<QuizListAdapter.QuizViewHolder>() {
+    private val isAdmin: Boolean,
+    private val onQuizClick: (Quiz) -> Unit
+) : RecyclerView.Adapter<QuizListAdapter.ViewHolder>() {
 
-    inner class QuizViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleText: TextView = itemView.findViewById(R.id.quizTitle)
-        private val descriptionText: TextView = itemView.findViewById(R.id.quizDescription)
-
-        fun bind(quiz: Quiz) {
-            titleText.text = quiz.title
-            descriptionText.text = quiz.description
-            itemView.setOnClickListener {
-                onItemClick(quiz)
-            }
-        }
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val title: TextView           = view.findViewById(R.id.quizTitle)
+        val description: TextView     = view.findViewById(R.id.quizDescription)
+        val actionButton: MaterialButton = view.findViewById(R.id.quizActionButton)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_quiz_list, parent, false)
-        return QuizViewHolder(view)
+            .inflate(R.layout.item_quiz, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
-        holder.bind(quizzes[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val quiz = quizzes[position]
+        holder.title.text       = quiz.title ?: "Untitled Quiz"
+        holder.description.text = quiz.description ?: "No description"
+
+        // ✅ Button label changes based on role
+        holder.actionButton.text = if (isAdmin) "Manage Questions" else "View Quiz"
+        holder.actionButton.setOnClickListener { onQuizClick(quiz) }
+        holder.itemView.setOnClickListener { onQuizClick(quiz) }
     }
 
-    override fun getItemCount(): Int = quizzes.size
+    override fun getItemCount() = quizzes.size
 }
