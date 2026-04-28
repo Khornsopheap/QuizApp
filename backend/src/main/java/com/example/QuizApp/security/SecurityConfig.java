@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -30,6 +31,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,   "/api/questions/quiz/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,    "/api/questions/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/questions/**").hasRole("ADMIN")
+                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/register").permitAll()   // ← add this line
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         // GET rules
@@ -50,5 +53,10 @@ public class SecurityConfig {
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
