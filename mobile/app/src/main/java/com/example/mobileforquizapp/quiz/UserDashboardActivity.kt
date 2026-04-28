@@ -29,6 +29,12 @@ class UserDashboardActivity : AppCompatActivity() {
 
         recyclerView  = findViewById(R.id.userQuizRecyclerView)
         joinGameButton = findViewById(R.id.joinGameButton)
+        findViewById<MaterialButton>(R.id.logoutBtn).setOnClickListener {
+            getSharedPreferences("MyApp", MODE_PRIVATE).edit().clear().apply()
+            val intent = android.content.Intent(this, com.example.mobileforquizapp.login.LoginActivity::class.java)
+            intent.flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // ✅ Join Game button opens JoinRoomActivity

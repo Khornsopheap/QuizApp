@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.model.Question
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
@@ -28,7 +27,7 @@ class AddQuestionActivity : AppCompatActivity() {
     private lateinit var correctAnswerSpinner: AutoCompleteTextView
     private lateinit var scoreInput: TextInputEditText
     private lateinit var submitButton: MaterialButton
-    private lateinit var topAppBar: MaterialToolbar
+    private lateinit var topAppBar: MaterialButton
 
     private var quizId: Long = -1
     private var token: String? = null
@@ -63,7 +62,7 @@ class AddQuestionActivity : AppCompatActivity() {
             return
         }
 
-        topAppBar.setNavigationOnClickListener { finish() }
+        topAppBar.setOnClickListener { finish() }
 
         fun refreshSpinner() {
             val options = listOf(

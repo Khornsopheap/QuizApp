@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileforquizapp.R
@@ -14,6 +15,7 @@ import com.example.mobileforquizapp.login.model.User
 import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.AdminDashboardActivity
 import com.example.mobileforquizapp.quiz.QuizListActivity
+import com.example.mobileforquizapp.quiz.RegisterActivity
 import com.example.mobileforquizapp.util.AuthUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,6 +31,10 @@ class LoginActivity : AppCompatActivity() {
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
         val loginButton   = findViewById<Button>(R.id.loginButton)
+
+        findViewById<TextView>(R.id.signupLink).setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
 
         Log.d("LoginActivity", "onCreate called")
 

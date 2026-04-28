@@ -4,37 +4,218 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF4EC">
+    android:background="@color/quiz_background">
 
-    <!-- Header -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🧠 QuizMaster"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#2C2C2A"
-        android:padding="16dp"/>
-
-    <!-- Quiz list -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/adminQuizRecyclerView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="64dp"
-        android:paddingBottom="96dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:clipToPadding="false"/>
+        android:paddingBottom="80dp"
+        android:clipToPadding="false">
 
-    <!-- ✅ Create New Quiz FAB bottom right -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/createQuizButton"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/quiz_purple"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="52dp"
+                android:paddingBottom="32dp">
+
+                <!-- Top row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="QuizMaster"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Admin"
+                            android:textSize="13sp"
+                            android:textColor="#CCB8FF" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/logoutBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="Logout"
+                        android:textSize="12sp"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        app:strokeColor="#FFFFFF"
+                        android:textColor="@color/white"
+                        app:cornerRadius="100dp" />
+
+                </LinearLayout>
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dashboard"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="20dp" />
+
+                <!-- Stats row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_stat_card"
+                        android:padding="14dp"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Quizzes"
+                            android:textSize="11sp"
+                            android:textColor="#CCB8FF" />
+
+                        <TextView
+                            android:id="@+id/tvTotalQuizzes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_stat_card"
+                        android:padding="14dp"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Questions"
+                            android:textSize="11sp"
+                            android:textColor="#CCB8FF" />
+
+                        <TextView
+                            android:id="@+id/tvTotalQuestions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Body -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="14dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="All Quizzes"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/quiz_text_primary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/createQuizButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="New Quiz"
+                        android:textSize="12sp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:backgroundTint="@color/quiz_purple"
+                        app:cornerRadius="100dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconTint="@color/white"
+                        app:iconSize="16dp"
+                        app:iconPadding="4dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/adminQuizRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
-        android:text="Create New Quiz"
-        app:icon="@android:drawable/ic_input_add"/>
+        android:layout_gravity="bottom"
+        android:background="@color/quiz_surface"
+        android:elevation="8dp"
+        app:menu="@menu/menu_admin_bottom_nav"
+        app:itemIconTint="@color/quiz_purple"
+        app:itemTextColor="@color/quiz_purple" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

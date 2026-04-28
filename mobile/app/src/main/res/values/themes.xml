@@ -1,9 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.Mobileforquizapp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/quiz_primary</item>
+        <item name="colorPrimaryContainer">@color/quiz_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/quiz_on_primary_container</item>
+        <item name="colorSecondary">@color/quiz_orange</item>
+        <item name="colorSecondaryContainer">@color/quiz_orange_container</item>
+        <item name="colorSurface">@color/quiz_surface</item>
+        <item name="colorSurfaceVariant">@color/quiz_surface_variant</item>
+        <item name="android:colorBackground">@color/quiz_background</item>
+        <item name="colorOnSurface">@color/quiz_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/quiz_on_surface_variant</item>
+        <item name="colorError">@color/quiz_error</item>
+        <item name="colorErrorContainer">@color/quiz_error_container</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.QuizApp.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.QuizApp.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.QuizApp.Large</item>
     </style>
 
     <style name="Theme.Mobileforquizapp" parent="Base.Theme.Mobileforquizapp" />
+
+    <style name="ShapeAppearance.QuizApp.Small" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">10dp</item>
+    </style>
+    <style name="ShapeAppearance.QuizApp.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+    <style name="ShapeAppearance.QuizApp.Large" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">24dp</item>
+    </style>
 </resources>

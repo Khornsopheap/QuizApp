@@ -1,6 +1,7 @@
 package com.example.mobileforquizapp.network
 
 import com.example.mobileforquizapp.login.model.LoginResponse
+import com.example.mobileforquizapp.login.model.RegisterRequest
 import com.example.mobileforquizapp.login.model.User
 import com.example.mobileforquizapp.quiz.model.Question
 import com.example.mobileforquizapp.quiz.model.Quiz
@@ -91,4 +92,9 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("roomCode") roomCode: String
     ): Call<List<Map<String, Any>>>
+
+    @POST("register")
+    fun register(
+        @Body request: RegisterRequest
+    ): Call<String>
 }

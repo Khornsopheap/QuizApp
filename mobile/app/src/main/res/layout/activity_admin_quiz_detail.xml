@@ -5,58 +5,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurfaceVariant"
+    android:background="@color/quiz_background"
     tools:context=".quiz.AdminQuizDetailActivity">
 
+    <!-- Header -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/quiz_purple"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorSurface"
-            app:title="Quiz Questions"
-            app:navigationContentDescription="Back" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="48dp"
+            android:paddingBottom="24dp">
+
+            <!-- Back row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/topAppBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    app:icon="@drawable/ic_back"
+                    app:iconTint="@color/white"
+                    app:iconSize="20dp"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quiz Questions"
+                    android:textSize="16sp"
+                    android:textColor="#CCB8FF" />
+
+            </LinearLayout>
+
+            <!-- Quiz title -->
+            <TextView
+                android:id="@+id/quizDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Questions"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Question list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="160dp"
+        android:paddingTop="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="100dp"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!-- Bottom buttons -->
+    <!-- Bottom action bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="end">
+        android:background="@color/quiz_surface"
+        android:elevation="8dp"
+        android:padding="16dp">
 
-        <!-- ✅ Start Quiz button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addQuestionFab"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="Add Question"
+            android:textSize="13sp"
+            android:layout_marginEnd="10dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:strokeColor="@color/quiz_purple"
+            android:textColor="@color/quiz_purple"
+            app:cornerRadius="100dp"
+            app:icon="@drawable/ic_add"
+            app:iconTint="@color/quiz_purple"
+            app:iconSize="16dp"
+            app:iconPadding="6dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startQuizButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="▶ Start Quiz"
-            android:layout_marginEnd="12dp"
-            app:backgroundTint="#FF6B00"
-            app:cornerRadius="100dp" />
-
-        <!-- Add Question FAB -->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/addQuestionFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Question"
-            app:icon="@android:drawable/ic_input_add" />
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="Start Quiz"
+            android:textSize="13sp"
+            app:backgroundTint="@color/quiz_purple"
+            app:cornerRadius="100dp"
+            app:icon="@drawable/ic_play"
+            app:iconTint="@color/white"
+            app:iconSize="16dp"
+            app:iconPadding="6dp" />
 
     </LinearLayout>
 

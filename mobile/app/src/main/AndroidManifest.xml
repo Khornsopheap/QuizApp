@@ -37,6 +37,7 @@
         <activity android:name=".quiz.LiveQuizActivity" />
         <activity android:name=".quiz.LeaderboardActivity" />
         <activity android:name=".quiz.QuizListActivity" />
+        <activity android:name=".quiz.RegisterActivity" />
 
     </application>
 </manifest>

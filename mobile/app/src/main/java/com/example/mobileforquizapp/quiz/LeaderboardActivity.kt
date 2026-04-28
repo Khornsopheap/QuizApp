@@ -42,6 +42,7 @@ class LeaderboardActivity : AppCompatActivity() {
         myScoreText    = findViewById(R.id.myScoreText)
         recyclerView   = findViewById(R.id.leaderboardRecyclerView)
         backHomeButton = findViewById(R.id.backHomeButton)
+        findViewById<MaterialButton>(R.id.backBtn).setOnClickListener { finish() }
 
         roomCode = intent.getStringExtra("room_code") ?: ""
         token    = intent.getStringExtra("jwt_token")

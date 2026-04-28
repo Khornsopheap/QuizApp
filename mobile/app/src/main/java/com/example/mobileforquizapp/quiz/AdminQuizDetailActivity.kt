@@ -11,7 +11,6 @@ import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.model.Question
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,8 +19,8 @@ class AdminQuizDetailActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: QuestionListAdapter
-    private lateinit var addQuestionFab: ExtendedFloatingActionButton
-    private lateinit var topAppBar: MaterialToolbar
+    private lateinit var addQuestionFab: MaterialButton
+    private lateinit var topAppBar: MaterialButton
     private lateinit var startQuizButton: MaterialButton  // ✅ new
 
     private var quizId: Long = -1
@@ -49,7 +48,7 @@ class AdminQuizDetailActivity : AppCompatActivity() {
             return
         }
 
-        topAppBar.setNavigationOnClickListener { finish() }
+        topAppBar.setOnClickListener { finish() }
 
         addQuestionFab.setOnClickListener {
             val intent = Intent(this, AddQuestionActivity::class.java)

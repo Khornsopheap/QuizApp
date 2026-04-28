@@ -1,7 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Mobileforquizapp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#A78BFA</item>
+        <item name="colorPrimaryContainer">#4C1D95</item>
+        <item name="colorOnPrimaryContainer">#EDE9FE</item>
+        <item name="colorSecondary">#FB923C</item>
+        <item name="colorSecondaryContainer">#7C2D12</item>
+        <item name="colorSurface">#1C1B1F</item>
+        <item name="colorSurfaceVariant">#2D2B32</item>
+        <item name="android:colorBackground">#13111A</item>
+        <item name="colorError">#F87171</item>
+        <item name="colorErrorContainer">#7F1D1D</item>
     </style>
 </resources>

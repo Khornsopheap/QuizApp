@@ -5,78 +5,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="#FFF4EC">
+    android:background="@color/quiz_background">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🎮 Join Quiz"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="#2C2C2A"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter the room code from your host"
-        android:textSize="14sp"
-        android:textColor="#5F5E5A"
-        android:layout_marginBottom="32dp"/>
-
-    <androidx.cardview.widget.CardView
+    <!-- Purple header -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:strokeColor="#FFD4B0"
-        app:strokeWidth="1dp"
-        android:layout_marginBottom="24dp">
+        android:orientation="vertical"
+        android:background="@color/quiz_purple"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="52dp"
+        android:paddingBottom="32dp"
+        android:gravity="center">
 
-        <LinearLayout
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_join"
+            app:tint="@color/white"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join Quiz"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter the room code from your host"
+            android:textSize="14sp"
+            android:textColor="#CCB8FF" />
+
+    </LinearLayout>
+
+    <!-- Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/quiz_surface"
+            android:layout_marginBottom="24dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Room Code (e.g. ABC123)"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxBackgroundColor="#FFF9F5">
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/roomCodeInput"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:textSize="24sp"
-                    android:gravity="center"
-                    android:letterSpacing="0.2"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"/>
+                    android:hint="Room Code (e.g. ABC123)"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/roomCodeInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:textSize="24sp"
+                        android:gravity="center"
+                        android:letterSpacing="0.2"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/joinButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Join Game"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        app:backgroundTint="#FF6B00"
-        app:cornerRadius="12dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/joinButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Join Game"
+            app:backgroundTint="@color/quiz_purple"
+            app:cornerRadius="100dp"
+            app:icon="@drawable/ic_join"
+            app:iconTint="@color/white"
+            app:iconSize="18dp"
+            app:iconPadding="8dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

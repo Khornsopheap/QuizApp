@@ -1,7 +1,7 @@
 package com.example.mobileforquizapp.quiz
 
 import android.os.Bundle
-import android.widget.Button
+import com.google.android.material.button.MaterialButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileforquizapp.R
@@ -21,7 +21,7 @@ class EditQuestionActivity : AppCompatActivity() {
     private lateinit var option4: TextInputEditText
     private lateinit var correctAnswerText: TextInputEditText
     private lateinit var scoreText: TextInputEditText
-    private lateinit var saveBtn: Button
+    private lateinit var saveBtn: MaterialButton
 
     private var questionId: Long = -1
     private var quizId: Long = -1
@@ -40,6 +40,7 @@ class EditQuestionActivity : AppCompatActivity() {
         correctAnswerText = findViewById(R.id.editCorrectAnswerText)
         scoreText        = findViewById(R.id.editScoreText)
         saveBtn          = findViewById(R.id.saveButton)
+        findViewById<MaterialButton>(R.id.backButton).setOnClickListener { finish() }
 
         // Get data from intent
         questionId = intent.getLongExtra("question_id", -1)
