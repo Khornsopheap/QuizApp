@@ -3,6 +3,7 @@ package com.example.mobileforquizapp.quiz
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,23 +11,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
-import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LeaderboardActivity : AppCompatActivity() {
 
-    private lateinit var myScoreText: TextView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var backHomeButton: MaterialButton
+    private lateinit var backBtn: ImageView
     private lateinit var adapter: LeaderboardAdapter
+
+    // Podium views
+    private lateinit var nameFirst: TextView
+    private lateinit var nameSecond: TextView
+    private lateinit var nameThird: TextView
+    private lateinit var scoreFirst: TextView
+    private lateinit var scoreSecond: TextView
+    private lateinit var scoreThird: TextView
 
     private var roomCode: String = ""
     private var token: String? = null
     private var myScore: Int = 0
 
-    // ✅ Poll every 5 seconds so leaderboard updates as others finish
     private val handler = Handler(Looper.getMainLooper())
     private val pollRunnable = object : Runnable {
         override fun run() {
@@ -39,27 +45,28 @@ class LeaderboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
 
-        myScoreText    = findViewById(R.id.myScoreText)
-        recyclerView   = findViewById(R.id.leaderboardRecyclerView)
-        backHomeButton = findViewById(R.id.backHomeButton)
-        findViewById<MaterialButton>(R.id.backBtn).setOnClickListener { finish() }
+        backBtn      = findViewById(R.id.backBtn)
+        recyclerView = findViewById(R.id.leaderboardRecyclerView)
+
+        // Podium views
+        nameFirst   = findViewById(R.id.nameFirst)
+        nameSecond  = findViewById(R.id.nameSecond)
+        nameThird   = findViewById(R.id.nameThird)
+        scoreFirst  = findViewById(R.id.scoreFirst)
+        scoreSecond = findViewById(R.id.scoreSecond)
+        scoreThird  = findViewById(R.id.scoreThird)
 
         roomCode = intent.getStringExtra("room_code") ?: ""
         token    = intent.getStringExtra("jwt_token")
             ?: getSharedPreferences("MyApp", MODE_PRIVATE).getString("jwt_token", null)
         myScore  = intent.getIntExtra("my_score", 0)
 
-        myScoreText.text = "Your score: $myScore pts"
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = LeaderboardAdapter(emptyList())
         recyclerView.adapter = adapter
 
-        backHomeButton.setOnClickListener {
-            finish()
-        }
+        backBtn.setOnClickListener { finish() }
 
-        // Start polling
         handler.post(pollRunnable)
     }
 
@@ -72,18 +79,65 @@ class LeaderboardActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val entries = response.body() ?: emptyList()
-                        // ✅ Rebuild adapter with fresh data
-                        recyclerView.adapter = LeaderboardAdapter(entries)
+                        bindPodium(entries)
+
+                        // Pass rank 4+ to the RecyclerView
+                        val remaining = if (entries.size > 3) entries.subList(3, entries.size) else emptyList()
+                        adapter = LeaderboardAdapter(remaining)
+                        recyclerView.adapter = adapter
                     }
                 }
+
                 override fun onFailure(call: Call<List<Map<String, Any>>>, t: Throwable) {
-                    // silently fail — will retry in 5s
+                    // Silently fail — will retry in 5s
                 }
             })
     }
 
+    private fun bindPodium(list: List<Map<String, Any>>) {
+        fun getName(map: Map<String, Any>): String =
+            (map["username"] as? String) ?: (map["name"] as? String) ?: "—"
+
+        fun getScore(map: Map<String, Any>): String {
+            val score = map["score"]
+            return when (score) {
+                is Double -> score.toInt().toString() + " pts"
+                is Int    -> "$score pts"
+                is String -> "$score pts"
+                else      -> "0 pts"
+            }
+        }
+
+        // 1st place
+        if (list.isNotEmpty()) {
+            nameFirst.text  = getName(list[0])
+            scoreFirst.text = getScore(list[0])
+        } else {
+            nameFirst.text  = "—"
+            scoreFirst.text = ""
+        }
+
+        // 2nd place
+        if (list.size > 1) {
+            nameSecond.text  = getName(list[1])
+            scoreSecond.text = getScore(list[1])
+        } else {
+            nameSecond.text  = "—"
+            scoreSecond.text = ""
+        }
+
+        // 3rd place
+        if (list.size > 2) {
+            nameThird.text  = getName(list[2])
+            scoreThird.text = getScore(list[2])
+        } else {
+            nameThird.text  = "—"
+            scoreThird.text = ""
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        handler.removeCallbacks(pollRunnable) // ✅ stop polling
+        handler.removeCallbacks(pollRunnable)
     }
 }

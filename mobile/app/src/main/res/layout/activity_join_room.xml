@@ -5,101 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/quiz_background">
+    android:background="@color/background">
 
-    <!-- Purple header -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/quiz_purple"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="52dp"
-        android:paddingBottom="32dp"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_join"
-            app:tint="@color/white"
-            android:layout_marginBottom="12dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Join Quiz"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginBottom="6dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter the room code from your host"
-            android:textSize="14sp"
-            android:textColor="#CCB8FF" />
-
-    </LinearLayout>
-
-    <!-- Content -->
+    <!-- Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/primary"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_vertical">
-
+        android:padding="24dp">
+        
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/white_10">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:src="@drawable/ic_verified"
+                app:tint="@color/white" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Join a Game"
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter the room code to start"
+            android:textSize="14sp"
+            android:textColor="@color/white_60" />
+    </LinearLayout>
+
+    <!-- Code Input Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/bg_form_container"
+        android:elevation="8dp"
+        android:padding="32dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/quiz_surface"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
+            android:hint="Room Code (ABC123)"
+            style="@style/EduQuizInput"
+            android:layout_marginBottom="32dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/roomCodeInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Room Code (e.g. ABC123)"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/roomCodeInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
-                        android:textSize="24sp"
-                        android:gravity="center"
-                        android:letterSpacing="0.2"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                android:inputType="textCapCharacters"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:letterSpacing="0.3"
+                android:fontFamily="monospace" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/joinButton"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="Join Game"
-            app:backgroundTint="@color/quiz_purple"
-            app:cornerRadius="100dp"
-            app:icon="@drawable/ic_join"
-            app:iconTint="@color/white"
-            app:iconSize="18dp"
-            app:iconPadding="8dp" />
+            android:layout_height="64dp"
+            android:text="Enter Room"
+            style="@style/Widget.Material3.Button"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="100dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:text="Need help? Contact your host"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

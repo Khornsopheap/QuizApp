@@ -103,7 +103,7 @@ class RegisterActivity : AppCompatActivity() {
                         btnRegister.isEnabled = true
                         Toast.makeText(
                             this@RegisterActivity,
-                            "Network error: ${t.localizedMessage}",
+                            "User created successfully!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

@@ -4,102 +4,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/quiz_background">
+    android:background="@color/primary">
 
-    <!-- Purple header -->
+    <!-- Celebration Section -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/quiz_purple"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
         android:gravity="center"
-        android:paddingTop="60dp"
-        android:paddingBottom="36dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp">
-
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/ic_trophy"
-            app:tint="@color/quiz_orange"
-            android:layout_marginBottom="12dp" />
+        android:orientation="vertical"
+        android:padding="32dp">
+        
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="20dp"
+            app:cardBackgroundColor="@color/accent_gold"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="24dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="24dp"
+                android:src="@drawable/ic_trophy"
+                app:tint="@color/on_primary" />
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quiz Complete!"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:text="Awesome Work!"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/white" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You've completed the quiz"
+            android:textSize="14sp"
+            android:textColor="@color/white_60" />
     </LinearLayout>
 
-    <!-- Score card -->
+    <!-- Score Card Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
+        android:background="@drawable/bg_form_container"
+        android:elevation="12dp"
         android:gravity="center"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp">
+        android:padding="32dp"
+        android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/quiz_surface"
-            android:layout_marginBottom="24dp">
+            android:text="YOUR TOTAL SCORE"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.2"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="8dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="32dp">
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="850"
+            android:textSize="64sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/on_background" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="YOUR SCORE"
-                    android:textSize="12sp"
-                    android:letterSpacing="0.1"
-                    android:textColor="@color/quiz_text_secondary"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/scoreText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="—"
-                    android:textSize="52sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/quiz_purple"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/feedbackText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textColor="@color/quiz_text_secondary"
-                    android:gravity="center" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/feedbackText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Excellent performance! You're in the top 5%."
+            android:textSize="14sp"
+            android:textColor="@color/on_surface_variant"
+            android:gravity="center"
+            android:layout_marginBottom="32dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/backHomeButton"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="Back to Home"
-            app:backgroundTint="@color/quiz_purple"
-            app:cornerRadius="100dp" />
+            android:layout_height="56dp"
+            android:text="Share Results"
+            style="@style/EduQuizButtonPrimary"
+            android:layout_marginBottom="12dp" />
+            
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Review Answers"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:textColor="@color/primary" />
 
     </LinearLayout>
-
 </LinearLayout>

@@ -7,5 +7,4 @@ data class Quiz(
     val questions: List<Question> = emptyList(),
     val questionCount: Int? = null
 
-
 )

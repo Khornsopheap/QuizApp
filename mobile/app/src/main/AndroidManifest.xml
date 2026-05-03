@@ -8,36 +8,46 @@
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="EduQuiz"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Mobileforquizapp"
-        tools:targetApi="31">
+        android:theme="@style/Theme.EduQuiz"
+        tools:targetApi="33">
 
+        <!-- Unified Launcher -->
         <activity android:name=".login.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <!-- Quizzes -->
-        <activity android:name=".quiz.QuizActivity"/>
-        <activity android:name=".quiz.AdminAddQuizActivity"/>
-        <activity android:name=".quiz.AdminDashboardActivity"/>
-        <activity android:name=".quiz.UserDashboardActivity"/>
-        <activity android:name=".quiz.ResultActivity"/>
-        <activity android:name=".quiz.CreateQuizActivity"/>
-        <activity android:name=".quiz.AdminQuizDetailActivity"/>
-        <activity android:name=".quiz.EditQuestionActivity"/>
-        <activity android:name=".quiz.AddQuestionActivity"/>
+        <!-- Auth -->
+        <activity android:name=".quiz.RegisterActivity" />
+
+        <!-- Dashboards -->
+        <activity android:name=".quiz.UserDashboardActivity" />
+        <activity android:name=".quiz.AdminDashboardActivity" />
+
+        <!-- Quiz Gameplay -->
+        <activity android:name=".quiz.QuizActivity" />
+        <activity android:name=".quiz.LiveQuizActivity" />
         <activity android:name=".quiz.RoomCodeActivity" />
         <activity android:name=".quiz.JoinRoomActivity" />
-        <activity android:name=".quiz.LiveQuizActivity" />
+        <activity android:name=".quiz.ResultActivity" />
         <activity android:name=".quiz.LeaderboardActivity" />
+
+        <!-- Admin Management -->
+        <activity android:name=".quiz.AdminAddQuizActivity" />
+        <activity android:name=".quiz.CreateQuizActivity" />
+        <activity android:name=".quiz.AdminQuizDetailActivity" />
+        <activity android:name=".quiz.AddQuestionActivity" />
+        <activity android:name=".quiz.EditQuestionActivity" />
         <activity android:name=".quiz.QuizListActivity" />
-        <activity android:name=".quiz.RegisterActivity" />
+
+        <activity android:name=".quiz.QuizManagementActivity" />
 
     </application>
 </manifest>

@@ -1,33 +1,27 @@
 package com.example.mobileforquizapp.quiz
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.view.LayoutInflater
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.model.Question
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class AddQuestionActivity : AppCompatActivity() {
 
-    private lateinit var questionInput: TextInputEditText
-    private lateinit var option1Input: TextInputEditText
-    private lateinit var option2Input: TextInputEditText
-    private lateinit var option3Input: TextInputEditText
-    private lateinit var option4Input: TextInputEditText
-    private lateinit var correctAnswerSpinner: AutoCompleteTextView
-    private lateinit var scoreInput: TextInputEditText
-    private lateinit var submitButton: MaterialButton
-    private lateinit var topAppBar: MaterialButton
+    private lateinit var questionInput: EditText
+    private lateinit var optionsContainer: LinearLayout
+    private lateinit var saveQuestionBtn: MaterialButton  // NEW: was submitQuizButton
 
     private var quizId: Long = -1
     private var token: String? = null
@@ -37,22 +31,14 @@ class AddQuestionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_question)
 
         // Bind views
-        topAppBar            = findViewById(R.id.topAppBar)
-        questionInput        = findViewById(R.id.questionInput)
-        option1Input         = findViewById(R.id.option1Input)
-        option2Input         = findViewById(R.id.option2Input)
-        option3Input         = findViewById(R.id.option3Input)
-        option4Input         = findViewById(R.id.option4Input)
-        correctAnswerSpinner = findViewById(R.id.correctAnswerSpinner)
-        scoreInput           = findViewById(R.id.scoreText)
-        submitButton         = findViewById(R.id.submitQuizButton)
+        questionInput    = findViewById(R.id.questionInput)
+        optionsContainer = findViewById(R.id.optionsContainer)
+        saveQuestionBtn  = findViewById(R.id.saveQuestionBtn)  // NEW: was submitQuizButton
 
-        // ✅ Get quizId and token
         quizId = intent.getLongExtra("quiz_id", -1)
         token  = intent.getStringExtra("jwt_token")
             ?: getSharedPreferences("MyApp", MODE_PRIVATE).getString("jwt_token", null)
 
-        // ✅ Debug — check token and quizId are received
         Log.d("AddQuestion", "quizId: $quizId")
         Log.d("AddQuestion", "token: $token")
 
@@ -62,55 +48,52 @@ class AddQuestionActivity : AppCompatActivity() {
             return
         }
 
-        topAppBar.setOnClickListener { finish() }
+        // Add 4 option rows dynamically into optionsContainer
+        val inflater = LayoutInflater.from(this)
+        repeat(4) { index ->
+            val optionView = inflater.inflate(R.layout.item_option_editor, optionsContainer, false)
+            optionView.tag = "option_$index"
 
-        fun refreshSpinner() {
-            val options = listOf(
-                option1Input.text.toString(),
-                option2Input.text.toString(),
-                option3Input.text.toString(),
-                option4Input.text.toString()
-            ).filter { it.isNotEmpty() }
-
-            val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, options)
-            correctAnswerSpinner.setAdapter(adapter)
-            correctAnswerSpinner.setText("", false)
+            // Wire delete button
+            optionView.findViewById<ImageView>(R.id.deleteOptionBtn).setOnClickListener {
+                if (optionsContainer.childCount > 2) {
+                    optionsContainer.removeView(optionView)
+                } else {
+                    Toast.makeText(this, "Minimum 2 options required.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            optionsContainer.addView(optionView)
         }
 
-        val watcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) { refreshSpinner() }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        }
-
-        option1Input.addTextChangedListener(watcher)
-        option2Input.addTextChangedListener(watcher)
-        option3Input.addTextChangedListener(watcher)
-        option4Input.addTextChangedListener(watcher)
-
-        submitButton.setOnClickListener {
-            val questionStr    = questionInput.text.toString().trim()
-            val o1             = option1Input.text.toString().trim()
-            val o2             = option2Input.text.toString().trim()
-            val o3             = option3Input.text.toString().trim()
-            val o4             = option4Input.text.toString().trim()
-            val selectedAnswer = correctAnswerSpinner.text.toString().trim()
-            val scoreValue     = scoreInput.text.toString().toIntOrNull()
+        saveQuestionBtn.setOnClickListener {
+            val questionStr = questionInput.text.toString().trim()
 
             if (questionStr.isEmpty()) {
                 Toast.makeText(this, "Question text is required.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (o1.isEmpty() || o2.isEmpty() || o3.isEmpty() || o4.isEmpty()) {
-                Toast.makeText(this, "All 4 options are required.", Toast.LENGTH_SHORT).show()
+
+            // Collect options and detect correct answer
+            val options = mutableListOf<String>()
+            var correctAnswer = ""
+
+            for (i in 0 until optionsContainer.childCount) {
+                val optionView = optionsContainer.getChildAt(i)
+                val text   = optionView.findViewById<EditText>(R.id.optionInput).text.toString().trim()
+                val isCorrect = optionView.findViewById<CheckBox>(R.id.correctToggle).isChecked
+
+                if (text.isNotEmpty()) {
+                    options.add(text)
+                    if (isCorrect) correctAnswer = text
+                }
+            }
+
+            if (options.size < 2) {
+                Toast.makeText(this, "At least 2 options are required.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (selectedAnswer.isEmpty()) {
-                Toast.makeText(this, "Please select the correct answer.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (scoreValue == null || scoreValue < 0) {
-                Toast.makeText(this, "Enter a valid score.", Toast.LENGTH_SHORT).show()
+            if (correctAnswer.isEmpty()) {
+                Toast.makeText(this, "Please mark the correct answer.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -118,22 +101,21 @@ class AddQuestionActivity : AppCompatActivity() {
                 id            = null,
                 quizId        = quizId,
                 question      = questionStr,
-                options       = listOf(o1, o2, o3, o4),
-                correctAnswer = selectedAnswer,
-                score         = scoreValue
+                options       = options,
+                correctAnswer = correctAnswer,
+                score         = 10   // default score; update if you add a score field
             )
 
-            // ✅ Debug — confirm what is being sent
             Log.d("AddQuestion", "Sending to: api/questions/quiz/$quizId")
             Log.d("AddQuestion", "Auth header: Bearer $token")
             Log.d("AddQuestion", "Question: $question")
 
-            submitButton.isEnabled = false
+            saveQuestionBtn.isEnabled = false
 
             RetrofitClient.apiService.createQuestion("Bearer $token", quizId, question)
                 .enqueue(object : Callback<Question> {
                     override fun onResponse(call: Call<Question>, response: Response<Question>) {
-                        submitButton.isEnabled = true
+                        saveQuestionBtn.isEnabled = true
                         Log.d("AddQuestion", "Response code: ${response.code()}")
                         if (response.isSuccessful) {
                             Toast.makeText(
@@ -154,7 +136,7 @@ class AddQuestionActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Question>, t: Throwable) {
-                        submitButton.isEnabled = true
+                        saveQuestionBtn.isEnabled = true
                         Log.e("AddQuestion", "Network error: ${t.message}")
                         Toast.makeText(
                             this@AddQuestionActivity,

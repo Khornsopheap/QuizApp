@@ -16,6 +16,7 @@ import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.AdminDashboardActivity
 import com.example.mobileforquizapp.quiz.QuizListActivity
 import com.example.mobileforquizapp.quiz.RegisterActivity
+import com.example.mobileforquizapp.quiz.UserDashboardActivity
 import com.example.mobileforquizapp.util.AuthUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,14 +26,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("LoginActivity", "1")
-        setContentView(R.layout.login_ui)
+        setContentView(R.layout.activity_login)
         Log.d("LoginActivity", "2")
 
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
-        val loginButton   = findViewById<Button>(R.id.loginButton)
+        val loginButton   = findViewById<Button>(R.id.loginBtn)
 
-        findViewById<TextView>(R.id.signupLink).setOnClickListener {
+        findViewById<TextView>(R.id.registerLink).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
@@ -65,17 +66,15 @@ class LoginActivity : AppCompatActivity() {
                             val isAdmin = role == "ADMIN"
                             Log.d("LoginActivity", "Role decoded: $role")
 
-                            // ✅ Save both token and isAdmin to SharedPreferences
                             val prefs: SharedPreferences =
                                 getSharedPreferences("MyApp", MODE_PRIVATE)
                             prefs.edit()
                                 .putString("jwt_token", token)
-                                .putBoolean("is_admin", isAdmin) // ✅ saved here
+                                .putBoolean("is_admin", isAdmin)
                                 .apply()
                             Log.d("LoginActivity", "Token and role saved")
 
                             if (isAdmin) {
-                                // ✅ Admin goes to AdminDashboardActivity (your existing screen)
                                 val intent = Intent(
                                     this@LoginActivity,
                                     AdminDashboardActivity::class.java
@@ -84,10 +83,9 @@ class LoginActivity : AppCompatActivity() {
                                 intent.putExtra("is_admin", true)
                                 startActivity(intent)
                             } else {
-                                // ✅ User goes to QuizListActivity (new screen with Join Game)
                                 val intent = Intent(
                                     this@LoginActivity,
-                                    QuizListActivity::class.java
+                                    UserDashboardActivity::class.java
                                 )
                                 intent.putExtra("jwt_token", token)
                                 intent.putExtra("is_admin", false)

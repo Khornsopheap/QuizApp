@@ -41,6 +41,21 @@ interface ApiService {
         @Body quiz: Quiz
     ): Call<Quiz>
 
+    // ✅ NEW: Edit an existing quiz
+    @PUT("quizzes/{id}")
+    fun updateQuiz(
+        @Header("Authorization") token: String,
+        @Path("id") quizId: Long,
+        @Body quiz: Quiz
+    ): Call<Quiz>
+
+    // ✅ NEW: Delete a quiz
+    @DELETE("quizzes/{id}")
+    fun deleteQuiz(
+        @Header("Authorization") token: String,
+        @Path("id") quizId: Long
+    ): Call<Void>
+
     @GET("quizzes/{id}/questions")
     fun getQuestionsByQuizId(
         @Header("Authorization") token: String,
@@ -67,7 +82,6 @@ interface ApiService {
         @Path("id") questionId: Long
     ): Call<Void>
 
-    // ✅ Session endpoints
     @POST("session/create/{quizId}")
     fun createSession(
         @Header("Authorization") token: String,
