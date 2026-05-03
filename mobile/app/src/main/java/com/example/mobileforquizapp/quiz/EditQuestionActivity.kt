@@ -1,7 +1,8 @@
 package com.example.mobileforquizapp.quiz
 
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageView
+import com.google.android.material.button.MaterialButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileforquizapp.R
@@ -21,7 +22,7 @@ class EditQuestionActivity : AppCompatActivity() {
     private lateinit var option4: TextInputEditText
     private lateinit var correctAnswerText: TextInputEditText
     private lateinit var scoreText: TextInputEditText
-    private lateinit var saveBtn: Button
+    private lateinit var saveBtn: MaterialButton
 
     private var questionId: Long = -1
     private var quizId: Long = -1
@@ -29,19 +30,22 @@ class EditQuestionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Uses the new activity_edit_question.xml (created to match new design style)
         setContentView(R.layout.activity_edit_question)
 
-        // Bind views
-        questionText     = findViewById(R.id.editQuestionText)
-        option1          = findViewById(R.id.editOption1)
-        option2          = findViewById(R.id.editOption2)
-        option3          = findViewById(R.id.editOption3)
-        option4          = findViewById(R.id.editOption4)
+        // IDs are unchanged — activity_edit_question.xml preserves original IDs
+        questionText      = findViewById(R.id.editQuestionText)
+        option1           = findViewById(R.id.editOption1)
+        option2           = findViewById(R.id.editOption2)
+        option3           = findViewById(R.id.editOption3)
+        option4           = findViewById(R.id.editOption4)
         correctAnswerText = findViewById(R.id.editCorrectAnswerText)
-        scoreText        = findViewById(R.id.editScoreText)
-        saveBtn          = findViewById(R.id.saveButton)
+        scoreText         = findViewById(R.id.editScoreText)
+        saveBtn           = findViewById(R.id.saveButton)
 
-        // Get data from intent
+        // NEW: backButton is now an ImageView (backBtn style) in the new layout
+        findViewById<ImageView>(R.id.backButton).setOnClickListener { finish() }
+
         questionId = intent.getLongExtra("question_id", -1)
         quizId     = intent.getLongExtra("quiz_id", -1)
         token      = intent.getStringExtra("jwt_token")
@@ -53,12 +57,10 @@ class EditQuestionActivity : AppCompatActivity() {
             return
         }
 
-        // Pre-fill fields
         questionText.setText(intent.getStringExtra("question_text"))
         correctAnswerText.setText(intent.getStringExtra("question_answer"))
         scoreText.setText(intent.getIntExtra("question_score", 1).toString())
 
-        // Split comma-separated options into 4 individual fields
         val options = intent.getStringExtra("question_options")
             ?.split(",")?.map { it.trim() } ?: emptyList()
         option1.setText(options.getOrNull(0) ?: "")
@@ -75,7 +77,6 @@ class EditQuestionActivity : AppCompatActivity() {
             val answerStr   = correctAnswerText.text.toString().trim()
             val scoreValue  = scoreText.text.toString().toIntOrNull()
 
-            // Validation
             if (questionStr.isEmpty()) {
                 Toast.makeText(this, "Question text is required.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

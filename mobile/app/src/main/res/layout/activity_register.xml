@@ -1,165 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    android:fillViewport="true"
-    tools:context=".Activity.RegisterActivity">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:paddingHorizontal="28dp"
-        android:paddingTop="56dp"
-        android:paddingBottom="40dp">
+        android:orientation="vertical">
 
-        <!-- Logo Badge -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            android:layout_marginBottom="24dp">
+        <!-- Visual Header -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="@color/secondary">
+            
+            <View
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="-60dp"
+                android:layout_marginBottom="-60dp"
+                android:background="@drawable/rank_badge_bg"
+                android:backgroundTint="@color/white_10" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Q"
-                android:textSize="42sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Join the Quest"
+                    android:textSize="32sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/white" />
 
-        </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create your EduQuiz account"
+                    android:textSize="14sp"
+                    android:textColor="@color/white_60" />
+            </LinearLayout>
+        </FrameLayout>
 
-        <!-- Title -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create Account"
-            android:textAppearance="?attr/textAppearanceHeadlineMedium"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Subtitle -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Join the quiz community today"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:gravity="center"
-            android:layout_marginBottom="40dp" />
-
-        <!-- Username Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:imeOptions="actionNext" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Email Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email address"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionNext" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Password Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:endIconMode="password_toggle"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:imeOptions="actionNext" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Confirm Password Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm password"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:endIconMode="password_toggle"
-            android:layout_marginBottom="32dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:imeOptions="actionDone" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Register Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Create Account"
-            android:textAppearance="?attr/textAppearanceLabelLarge"
-            style="@style/Widget.Material3.Button"
-            app:cornerRadius="16dp"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Login Link -->
+        <!-- Form Section -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_marginTop="-30dp"
+            android:padding="32dp"
+            android:background="@drawable/bg_form_container"
+            android:elevation="8dp"
+            android:orientation="vertical">
 
-            <TextView
+            <!-- Role Selection (Syncing missing original feature) -->
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account? "
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?attr/colorOnSurfaceVariant" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp"
+                app:singleSelection="true">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student"
+                    android:checked="true"
+                    style="@style/EduQuizChip" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAdmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teacher"
+                    style="@style/EduQuizChip" />
+            </com.google.android.material.chip.ChipGroup>
 
-            <TextView
-                android:id="@+id/tvGoLogin"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                style="@style/EduQuizInput"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                style="@style/EduQuizInput"
+                app:endIconMode="password_toggle"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                style="@style/EduQuizInput"
+                app:endIconMode="password_toggle"
+                android:layout_marginBottom="32dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Create Account"
+                style="@style/Widget.Material3.Button"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="100dp" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign In"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
-                android:textColor="?attr/colorPrimary" />
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Have an account? "
+                    android:textColor="@color/on_surface_variant" />
+                <TextView
+                    android:id="@+id/tvGoLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

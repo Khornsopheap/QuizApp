@@ -5,85 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="#FFF4EC">
+    android:background="@color/background">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🎯 Quiz is Live!"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="#2C2C2A"
-        android:layout_marginBottom="8dp"/>
+    <!-- Host Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for Players"
+            android:textSize="14sp"
+            android:letterSpacing="0.2"
+            android:textColor="@color/white_60" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Share this code with your players"
-        android:textSize="14sp"
-        android:textColor="#5F5E5A"
-        android:layout_marginBottom="32dp"/>
+        <TextView
+            android:id="@+id/roomCodeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="ABCD"
+            android:textSize="72sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/accent_amber"
+            android:letterSpacing="0.1" />
 
-    <!-- Room code big display -->
-    <androidx.cardview.widget.CardView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHARE THIS CODE"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <!-- Lobby Section -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:strokeColor="#FFD4B0"
-        app:strokeWidth="1dp"
-        android:layout_marginBottom="32dp">
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/bg_form_container"
+        android:elevation="8dp"
+        android:padding="32dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
-            android:padding="32dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ROOM CODE"
-                android:textSize="12sp"
-                android:textColor="#B4B2A9"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="12dp"/>
-
-            <TextView
-                android:id="@+id/roomCodeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ABC123"
-                android:textSize="52sp"
-                android:textStyle="bold"
-                android:textColor="#FF6B00"
-                android:letterSpacing="0.2"
-                android:layout_marginBottom="16dp"/>
-
-            <!-- Players joined count -->
+            android:orientation="horizontal"
+            android:layout_marginBottom="32dp">
+            <ImageView 
+                android:layout_width="20dp" 
+                android:layout_height="20dp" 
+                android:src="@drawable/ic_verified" 
+                app:tint="@color/on_surface_variant" 
+                android:layout_marginEnd="8dp" />
             <TextView
                 android:id="@+id/playersJoinedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="👥 0 players joined"
-                android:textSize="14sp"
-                android:textColor="#5F5E5A"/>
-
+                android:text="0 Players Joined"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/on_surface" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/viewLeaderboardButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Leaderboard"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        app:backgroundTint="#FF6B00"
-        app:cornerRadius="12dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/viewLeaderboardButton"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="Start Presentation"
+            style="@style/Widget.Material3.Button"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="100dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Cancel Room"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:textColor="@color/error" />
+
+    </LinearLayout>
 
 </LinearLayout>

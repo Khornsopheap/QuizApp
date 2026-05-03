@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Modern Elevated Card Style -->
+    <style name="EduQuizCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+    </style>
+
+    <!-- Professional Primary Button -->
+    <style name="EduQuizButtonPrimary" parent="Widget.Material3.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Full</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Standard Input Style -->
+    <style name="EduQuizInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="hintTextColor">@color/primary</item>
+    </style>
+
+    <!-- Dropdown Style for Spinner/Correct Answer -->
+    <style name="EduQuizInputDropdown" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/primary</item>
+    </style>
+
+    <!-- Chip Filter Replacement -->
+    <style name="EduQuizChip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/surface_variant</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+    </style>
+
+    <!-- ========================= -->
+    <!-- TextAppearance Styles -->
+    <!-- ========================= -->
+
+    <!-- Large Heading -->
+    <style name="EduQuizHeading" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <!-- Medium Body Text -->
+    <style name="EduQuizBody" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Small Label -->
+    <style name="EduQuizLabel" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">@color/slate_600</item>
+        <item name="android:fontFamily">sans-serif-bold</item>
+    </style>
+
+    <!-- Stat Number (for points, quizzes, etc.) -->
+    <style name="EduQuizStatNumber" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textColor">@color/slate_800</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+
+    <!-- Stat Title (like TOTAL QUIZZES, STUDENTS) -->
+    <style name="EduQuizStatTitle" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">@color/slate_400</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+</resources>

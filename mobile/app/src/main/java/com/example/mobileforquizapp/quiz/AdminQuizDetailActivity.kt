@@ -2,6 +2,7 @@ package com.example.mobileforquizapp.quiz
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileforquizapp.R
 import com.example.mobileforquizapp.network.RetrofitClient
 import com.example.mobileforquizapp.quiz.model.Question
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,9 +19,9 @@ class AdminQuizDetailActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: QuestionListAdapter
-    private lateinit var addQuestionFab: ExtendedFloatingActionButton
-    private lateinit var topAppBar: MaterialToolbar
-    private lateinit var startQuizButton: MaterialButton  // ✅ new
+    private lateinit var addQuestionBtn: MaterialButton  // NEW: was addQuestionFab
+    private lateinit var backBtn: ImageView              // NEW: was topAppBar (MaterialButton)
+    private lateinit var startQuizBtn: MaterialButton    // NEW: was startQuizButton
 
     private var quizId: Long = -1
     private var token: String? = null
@@ -30,12 +29,12 @@ class AdminQuizDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_quiz_detail)
+        setContentView(R.layout.activity_quiz_view)
 
-        recyclerView     = findViewById(R.id.questionRecyclerView)
-        addQuestionFab   = findViewById(R.id.addQuestionFab)
-        topAppBar        = findViewById(R.id.topAppBar)
-        startQuizButton  = findViewById(R.id.startQuizButton)  // ✅ new
+        recyclerView = findViewById(R.id.questionRecyclerView)
+        addQuestionBtn = findViewById(R.id.addQuestionBtn)
+        backBtn        = findViewById(R.id.backBtn)
+        startQuizBtn   = findViewById(R.id.startQuizBtn)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -49,23 +48,22 @@ class AdminQuizDetailActivity : AppCompatActivity() {
             return
         }
 
-        topAppBar.setNavigationOnClickListener { finish() }
+        backBtn.setOnClickListener { finish() }
 
-        addQuestionFab.setOnClickListener {
+        addQuestionBtn.setOnClickListener {
             val intent = Intent(this, AddQuestionActivity::class.java)
             intent.putExtra("quiz_id", quizId)
             intent.putExtra("jwt_token", token)
             startActivity(intent)
         }
 
-        // ✅ Start Quiz → call API to create room → go to RoomCodeActivity
-        startQuizButton.setOnClickListener {
+        startQuizBtn.setOnClickListener {
             if (questions.isEmpty()) {
                 Toast.makeText(this, "Add at least one question first.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            startQuizButton.isEnabled = false
-            startQuizButton.text = "Starting..."
+            startQuizBtn.isEnabled = false
+            startQuizBtn.text = "Starting..."
 
             RetrofitClient.apiService.createSession("Bearer $token", quizId)
                 .enqueue(object : Callback<Map<String, String>> {
@@ -73,8 +71,8 @@ class AdminQuizDetailActivity : AppCompatActivity() {
                         call: Call<Map<String, String>>,
                         response: Response<Map<String, String>>
                     ) {
-                        startQuizButton.isEnabled = true
-                        startQuizButton.text = "▶ Start Quiz"
+                        startQuizBtn.isEnabled = true
+                        startQuizBtn.text = "Start Quiz"
                         if (response.isSuccessful) {
                             val roomCode = response.body()?.get("roomCode") ?: ""
                             val intent = Intent(this@AdminQuizDetailActivity, RoomCodeActivity::class.java)
@@ -92,8 +90,8 @@ class AdminQuizDetailActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
-                        startQuizButton.isEnabled = true
-                        startQuizButton.text = "▶ Start Quiz"
+                        startQuizBtn.isEnabled = true
+                        startQuizBtn.text = "Start Quiz"
                         Toast.makeText(
                             this@AdminQuizDetailActivity,
                             "Network error: ${t.localizedMessage}",

@@ -1,51 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFF4EC"
-    android:padding="24dp">
+    android:background="@color/background">
 
-    <!-- Header -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🏆 Leaderboard"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="#2C2C2A"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="4dp"/>
-
-    <TextView
-        android:id="@+id/myScoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your score: 0 pts"
-        android:textSize="14sp"
-        android:textColor="#FF6B00"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"/>
-
-    <!-- Leaderboard list -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/leaderboardRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="16dp"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/backHomeButton"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back to Home"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        app:backgroundTint="#FF6B00"
-        app:cornerRadius="12dp"/>
+        android:background="#630ed4"
+        app:elevation="0dp">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+                <ImageView
+                    android:id="@+id/backBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="@color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Global Rankings"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <!-- Podium -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp">
+
+                <!-- 2nd Place -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="32dp"
+                        app:strokeColor="#4DFFFFFF"
+                        app:strokeWidth="2dp">
+                        <ImageView
+                            android:id="@+id/avatarSecond"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/second_place" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/scoreSecond"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text=""
+                        android:textColor="@color/white_opacity_90"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-black" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="8dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/podium_silver" />
+
+                        <TextView
+                            android:id="@+id/nameSecond"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:fontFamily="sans-serif-bold" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <!-- 1st Place -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_crown"
+                        app:tint="@color/amber" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="4dp"
+                        app:cardCornerRadius="40dp"
+                        app:strokeColor="@color/amber"
+                        app:strokeWidth="3dp">
+                        <ImageView
+                            android:id="@+id/avatarFirst"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/first_place" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/scoreFirst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text=""
+                        android:textColor="@color/amber"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-black" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/podium_gold" />
+
+                        <TextView
+                            android:id="@+id/nameFirst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-black" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <!-- 3rd Place -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="32dp"
+                        app:strokeColor="#4DFFFFFF"
+                        app:strokeWidth="2dp">
+                        <ImageView
+                            android:id="@+id/avatarThird"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/third" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/scoreThird"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text=""
+                        android:textColor="@color/white_opacity_90"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-black" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="8dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/podium_bronze" />
+
+                        <TextView
+                            android:id="@+id/nameThird"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:fontFamily="sans-serif-bold" />
+                    </FrameLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_leaderboard_list"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginTop="-24dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/leaderboardRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

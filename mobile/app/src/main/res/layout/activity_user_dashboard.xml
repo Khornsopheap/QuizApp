@@ -1,47 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFF4EC">
+    android:background="@color/background">
 
-    <!-- Header -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Premium Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="56dp"
+                android:paddingBottom="40dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Good Morning,"
+                            android:textColor="@color/white_60"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tvWelcome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quiz Challenger"
+                            android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-black" />
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/logoutBtn"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardBackgroundColor="@color/white_10"
+                        app:strokeWidth="0dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_verified"
+                            app:tint="@color/white" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Quick Stats -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="@color/white_10"
+                        app:strokeWidth="0dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Level" android:textColor="@color/white_60" android:textSize="11sp"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pro Learner" android:textColor="@color/white" android:textStyle="bold"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="@color/accent_amber"
+                        app:strokeWidth="0dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Reward" android:textColor="@color/black_opacity_40" android:textSize="11sp"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1,240 pts" android:textColor="@color/on_background" android:textStyle="bold"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Main Content Area -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-24dp"
+                android:background="@drawable/bg_form_container"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Explore Quizzes"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/on_background"
+                    android:layout_marginBottom="16dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/userQuizRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Join Button -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/joinGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🧠 QuizMaster"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#2C2C2A"
-        android:padding="16dp"/>
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="32dp"
+        android:text="Join Room"
+        app:icon="@drawable/ic_trophy"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/primary" />
 
-    <!-- ✅ RecyclerView takes remaining space, not all space -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userQuizRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
-        android:clipToPadding="false"/>
-
-    <!-- ✅ Join Game button always visible at bottom -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/joinGameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🎮 Join Game"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:backgroundTint="#FF6B00"
-        app:cornerRadius="12dp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"/>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
