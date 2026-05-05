@@ -28,7 +28,7 @@ class AdminAddQuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_question)
 
         questionInput    = findViewById(R.id.questionInput)
-        optionsContainer = findViewById(R.id.optionsContainer)
+//        optionsContainer = findViewById(R.id.optionsContainer)
         saveQuestionBtn  = findViewById(R.id.saveQuestionBtn)
 
         val quizId = intent.getLongExtra("quiz_id", -1)

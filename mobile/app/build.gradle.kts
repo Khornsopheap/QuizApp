@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.jjwt.api)
+    implementation(libs.glide)
     implementation(libs.jjwt.impl)
     implementation(libs.jjwt.jackson)
     testImplementation(libs.junit)
@@ -54,4 +55,5 @@ dependencies {
     implementation(libs.converter.gson)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 }

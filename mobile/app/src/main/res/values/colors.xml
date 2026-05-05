@@ -1,76 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors (Sync with React App) -->
+    <!-- ══════════════════════════════════════════════════════════
+         BRAND COLORS
+         ══════════════════════════════════════════════════════════ -->
     <color name="primary">#630ed4</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="primary_container">#7c3aed</color>
-    <color name="on_primary_container">#FFFFFF</color>
+    <color name="primary_container">#EDE0FF</color>         <!-- was #7c3aed — now a soft lavender tint -->
+    <color name="on_primary_container">#1E0053</color>
     <color name="primary_light">#a855f7</color>
+
     <color name="secondary">#635b6e</color>
     <color name="tertiary">#005b3d</color>
-    <color name="background">#FFFFFF</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="on_surface">#121c2a</color>
-    <color name="surface_variant">#FFFFFF</color>
-    <color name="on_surface_variant">#44474E</color>
-    <color name="on_background">#1e293b</color>
-    <color name="white_10">#1AFFFFFF</color>
-    <color name="white_60">#99FFFFFF</color>
-    <color name="accent_amber">#f59e0b</color>
-    <color name="accent_orange">#EF8E46</color>
-    <color name="accent_gold">#FFD700</color>
-
-    <color name="orange_vibrant">#FF8E46</color>
-    <color name="emerald">#10b981</color>
-    <color name="rose">#f43f5e</color>
-    <color name="amber">#f59e0b</color>
-    <color name="slate_50">#FAFAFA</color>
-    <color name="slate_100">#f1f5f9</color>
-    <color name="slate_200">#e2e8f0</color>
-    <color name="slate_300">#cbd5e1</color>
-    <color name="slate_400">#94a3b8</color>
-    <color name="slate_500">#64748b</color>
-    <color name="slate_600">#475569</color>
-    <color name="slate_700">#334155</color>
-    <color name="slate_800">#1e293b</color>
-
-    <!-- Helpers -->
-    <color name="white">#FFFFFF</color>
-    <color name="white_opacity_20">#33FFFFFF</color>
-    <color name="white_opacity_90">#E6FFFFFF</color>
-    <color name="black_opacity_40">#66000000</color>
-    <color name="outline">#79747E</color>
-    <color name="outline_variant">#E2E1E9</color>
-
     <color name="on_tertiary">#FFFFFF</color>
-    <color name="tertiary_container">#FFD8E4</color>
-    <color name="on_tertiary_container">#31111D</color>
+    <color name="tertiary_container">#C8FFE2</color>        <!-- was #FFD8E4 — matching green brand -->
+    <color name="on_tertiary_container">#001B0F</color>
+
     <color name="error">#B00020</color>
     <color name="on_error">#FFFFFF</color>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SURFACES  (the main fix — no more flat white)
+         ══════════════════════════════════════════════════════════ -->
+
+    <!-- Page background: very faint purple-grey tint -->
+    <color name="background">#F3F0FA</color>               <!-- was #FFFFFF -->
+    <color name="on_background">#1e293b</color>
+
+    <!-- Card / sheet surface: clean white with warmth -->
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#121c2a</color>
+
+    <!-- Input fields, chips, secondary cards -->
+    <color name="surface_variant">#EDE8F5</color>          <!-- was #FFFFFF — soft lilac -->
+    <color name="on_surface_variant">#44474E</color>
+
+    <!-- Dividers / borders -->
+    <color name="outline">#79747E</color>
+    <color name="outline_variant">#CAC4D0</color>          <!-- was #E2E1E9 — slightly more visible -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         QUIZ-SPECIFIC SURFACES  (same fix applied)
+         ══════════════════════════════════════════════════════════ -->
 
     <!-- Brand Purple -->
     <color name="quiz_purple">#7C4DFF</color>
     <color name="quiz_purple_dark">#5E35B1</color>
-    <color name="quiz_purple_light">#FFFFFF</color>
-    <color name="quiz_purple_container">#FFFFFF</color>
+    <color name="quiz_purple_light">#EDE0FF</color>        <!-- was #FFFFFF — soft lavender -->
+    <color name="quiz_purple_container">#F3EEFF</color>    <!-- was #FFFFFF — ghost purple for cards -->
 
-    <!-- Surfaces -->
-    <color name="quiz_background">#FFFFFF</color>
-    <color name="quiz_surface">#FFFFFF</color>
-    <color name="quiz_surface_variant">#FFFFFF</color>
-    <color name="quiz_outline">#FFFFFF</color>
+    <!-- Page + card backgrounds -->
+    <color name="quiz_background">#F3F0FA</color>          <!-- was #FFFFFF — tinted page bg -->
+    <color name="quiz_surface">#FFFFFF</color>             <!-- pure white cards pop on the bg -->
+    <color name="quiz_surface_variant">#EDE8F5</color>     <!-- was #FFFFFF — input / secondary card -->
+    <color name="quiz_outline">#D4C8ED</color>             <!-- was #FFFFFF — visible soft dividers -->
+
+    <!-- Orange theme extras -->
+    <color name="quiz_orange">#FF6B00</color>
+    <color name="quiz_orange_container">#FFE8D5</color>    <!-- warm peach for stat cards -->
+    <color name="quiz_blue">#2563EB</color>
+    <color name="quiz_blue_light">#DBEAFE</color>
+
+    <!-- Quiz brand theme colors (mirror above) -->
+    <color name="quiz_primary">#630ed4</color>
+    <color name="quiz_primary_container">#EDE0FF</color>
+    <color name="quiz_on_primary_container">#1E0053</color>
+    <color name="quiz_error">#B00020</color>
+    <color name="quiz_error_container">#FFDAD6</color>
 
     <!-- Text -->
     <color name="quiz_text_primary">#1A1040</color>
     <color name="quiz_text_secondary">#6B6480</color>
     <color name="quiz_text_hint">#B0AAC8</color>
 
-    <!-- Card accent colors -->
+    <!-- ══════════════════════════════════════════════════════════
+         ACCENT / SEMANTIC COLORS
+         ══════════════════════════════════════════════════════════ -->
+    <color name="accent_amber">#f59e0b</color>
+    <color name="accent_orange">#EF8E46</color>
+    <color name="accent_gold">#FFD700</color>
+    <color name="orange_vibrant">#FF8E46</color>
+    <color name="emerald">#10b981</color>
+    <color name="rose">#f43f5e</color>
+    <color name="amber">#f59e0b</color>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SLATE SCALE  (unchanged — already fine)
+         ══════════════════════════════════════════════════════════ -->
+    <color name="slate_50">#F8F7FC</color>                 <!-- nudged slightly purple -->
+    <color name="slate_100">#F0EDF8</color>                <!-- was #f1f5f9 — purple-tinted -->
+    <color name="slate_200">#E2DCF0</color>                <!-- was #e2e8f0 -->
+    <color name="slate_300">#C9BFDF</color>                <!-- was #cbd5e1 -->
+    <color name="slate_400">#94a3b8</color>
+    <color name="slate_500">#64748b</color>
+    <color name="slate_600">#475569</color>
+    <color name="slate_700">#334155</color>
+    <color name="slate_800">#1e293b</color>
+
+    <!-- ══════════════════════════════════════════════════════════
+         CARD ACCENT STRIP COLORS
+         ══════════════════════════════════════════════════════════ -->
     <color name="card_accent_1">#7C4DFF</color>
     <color name="card_accent_2">#FF6B00</color>
     <color name="card_accent_3">#448AFF</color>
     <color name="card_accent_4">#FF4081</color>
     <color name="card_accent_5">#00C853</color>
     <color name="card_accent_6">#FFB300</color>
+
+    <!-- ══════════════════════════════════════════════════════════
+         HELPERS
+         ══════════════════════════════════════════════════════════ -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_opacity_20">#33FFFFFF</color>
+    <color name="white_opacity_90">#E6FFFFFF</color>
+    <color name="black_opacity_40">#66000000</color>
 
 </resources>

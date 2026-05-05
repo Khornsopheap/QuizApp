@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
     app:cardCornerRadius="32dp"
     app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/quiz_surface"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -13,6 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- ── THUMBNAIL ── -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="160dp">
@@ -23,6 +26,11 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_img" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_opacity_40" />
 
             <TextView
                 android:id="@+id/quizCategory"
@@ -49,11 +57,13 @@
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:src="@drawable/ic_verified"
                     app:tint="@color/emerald" />
+
                 <TextView
                     android:id="@+id/quizStatus"
                     android:layout_width="wrap_content"
@@ -64,8 +74,10 @@
                     android:textSize="10sp"
                     android:fontFamily="sans-serif-black" />
             </LinearLayout>
+
         </RelativeLayout>
 
+        <!-- ── BODY ── -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,107 +90,131 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="Quiz Title"
-                android:textColor="@color/slate_800"
+                android:textColor="@color/quiz_text_primary"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/quizDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Description"
+                android:textColor="@color/quiz_text_secondary"
+                android:textSize="13sp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_quiz"
+                    app:tint="@color/slate_400" />
+
+                <TextView
+                    android:id="@+id/quizQuestionCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_quiz"
-                        app:tint="@color/slate_400" />
-                    <TextView
-                        android:id="@+id/quizQuestionCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="0 Questions"
-                        android:textColor="@color/slate_400"
-                        android:textSize="12sp"
-                        android:fontFamily="sans-serif-bold" />
-                </LinearLayout>
+                    android:layout_marginStart="4dp"
+                    android:text="0 Questions"
+                    android:textColor="@color/slate_400"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-bold" />
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_schedule"
+                    app:tint="@color/slate_400" />
+
+                <TextView
+                    android:id="@+id/quizDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_schedule"
-                        app:tint="@color/slate_400" />
-                    <TextView
-                        android:id="@+id/quizDuration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="— Mins"
-                        android:textColor="@color/slate_400"
-                        android:textSize="12sp"
-                        android:fontFamily="sans-serif-bold" />
-                </LinearLayout>
+                    android:layout_marginStart="4dp"
+                    android:text="— Mins"
+                    android:textColor="@color/slate_400"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-bold" />
+
             </LinearLayout>
 
+            <!-- ── ACTION ROW ── -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStart"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
+                    android:layout_height="52dp"
                     android:layout_weight="1"
                     android:text="Start"
                     android:textAllCaps="false"
                     android:fontFamily="sans-serif-black"
                     app:backgroundTint="@color/primary"
                     app:cornerRadius="16dp"
-                    app:icon="@drawable/ic_play" />
+                    app:icon="@drawable/ic_play"
+                    app:iconPadding="8dp" />
 
+                <!-- Edit — clickable + ripple -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnEdit"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="12dp"
-                    app:cardBackgroundColor="@color/slate_50"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/quiz_surface_variant"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:rippleColor="@color/primary">
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="16dp"
+                        android:padding="14dp"
                         android:src="@drawable/ic_edit"
-                        app:tint="@color/slate_400" />
+                        android:clickable="false"
+                        android:focusable="false"
+                        app:tint="@color/primary" />
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Delete — clickable + ripple -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnDelete"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="12dp"
-                    app:cardBackgroundColor="@color/slate_50"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/quiz_error_container"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:rippleColor="@color/quiz_error">
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="16dp"
+                        android:padding="14dp"
                         android:src="@drawable/ic_delete"
-                        app:tint="@color/rose" />
+                        android:clickable="false"
+                        android:focusable="false"
+                        app:tint="@color/quiz_error" />
                 </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

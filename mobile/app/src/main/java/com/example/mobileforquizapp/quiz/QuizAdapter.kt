@@ -15,7 +15,6 @@ class QuizAdapter(
     private val onItemClick: (Question) -> Unit
 ) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
 
-    // Track selected answers for each quiz
     private val userAnswers = MutableList(questions.size) { "" }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {

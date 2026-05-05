@@ -16,19 +16,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserDashboardActivity : AppCompatActivity() {
+class UserDashboardActivity : UserBaseActivity() {
+    override fun currentNavItem() = NAV_HOME
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var joinGameButton: ExtendedFloatingActionButton
     private lateinit var tvWelcome: TextView
-    private var token: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
-
-        token = getSharedPreferences("MyApp", MODE_PRIVATE).getString("jwt_token", null)
-            ?: intent.getStringExtra("jwt_token")
+        setupNav()
 
         recyclerView   = findViewById(R.id.userQuizRecyclerView)
         joinGameButton = findViewById(R.id.joinGameButton)

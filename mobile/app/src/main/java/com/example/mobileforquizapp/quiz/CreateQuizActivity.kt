@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileforquizapp.R
@@ -23,7 +24,8 @@ class CreateQuizActivity : AppCompatActivity() {
         val descriptionInput = findViewById<EditText>(R.id.quizDescriptionInput)
         val createButton     = findViewById<Button>(R.id.createQuizButton)
 
-        // ✅ Read token from intent first, fallback to SharedPreferences
+        findViewById<ImageView>(R.id.backBtn)?.setOnClickListener { finish() }
+
         val token = intent.getStringExtra("jwt_token")
             ?: getSharedPreferences("MyApp", MODE_PRIVATE).getString("jwt_token", null)
 

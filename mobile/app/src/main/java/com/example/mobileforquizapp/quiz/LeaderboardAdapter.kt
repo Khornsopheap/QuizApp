@@ -3,18 +3,24 @@ package com.example.mobileforquizapp.quiz
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mobileforquizapp.R
+import com.example.mobileforquizapp.util.AvatarUtils
 
 class LeaderboardAdapter(
     private val entries: List<Map<String, Any>>
 ) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val rankText: TextView     = view.findViewById(R.id.rankText)
-        val usernameText: TextView = view.findViewById(R.id.usernameText)
-        val scoreText: TextView    = view.findViewById(R.id.scoreText)
+        val rankText:     TextView  = view.findViewById(R.id.rankText)
+        val avatarImage:  ImageView = view.findViewById(R.id.avatarImage)
+        val usernameText: TextView  = view.findViewById(R.id.usernameText)
+        val labelText:    TextView  = view.findViewById(R.id.labelText)
+        val scoreText:    TextView  = view.findViewById(R.id.scoreText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,19 +31,31 @@ class LeaderboardAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entry = entries[position]
-        val rank = position + 1
 
-        // ✅ medal for top 3
-        holder.rankText.text = when (rank) {
-            1 -> "🥇"
-            2 -> "🥈"
-            3 -> "🥉"
-            else -> "$rank"
+        // Rank starts at 4 since top 3 are in podium
+        holder.rankText.text = (position + 4).toString()
+
+        val name = (entry["username"] as? String)
+            ?: (entry["name"] as? String)
+            ?: "?"
+        holder.usernameText.text = name
+
+        val score = when (val s = entry["score"]) {
+            is Double -> s.toInt().toString()
+            is Int    -> s.toString()
+            is String -> s
+            else      -> "0"
         }
+        holder.scoreText.text = score
+        holder.labelText.visibility = View.GONE
 
-        holder.usernameText.text = entry["username"]?.toString() ?: "Unknown"
-        val score = (entry["score"] as? Double)?.toInt() ?: 0
-        holder.scoreText.text = "$score pts"
+        // Load DiceBear avatar
+        Glide.with(holder.itemView.context)
+            .load(AvatarUtils.getAvatarUrl(name))
+            .transform(CircleCrop())
+            .placeholder(R.drawable.ic_person)
+            .error(R.drawable.ic_person)
+            .into(holder.avatarImage)
     }
 
     override fun getItemCount() = entries.size

@@ -18,8 +18,6 @@ class QuizManagementAdapter(
     private val onDeleteClick: (Quiz) -> Unit
 ) : RecyclerView.Adapter<QuizManagementAdapter.ViewHolder>() {
 
-
-    // Keywords in quiz title → specific background image
     private val keywordImageMap = mapOf(
         listOf("math", "algebra", "calculus", "geometry", "number")
                 to R.drawable.quiz_bg_1,
@@ -31,7 +29,6 @@ class QuizManagementAdapter(
                 to R.drawable.quiz_bg_4,
     )
 
-    // Rotate through all 6 images when no keyword matches
     private val fallbackImages = listOf(
         R.drawable.quiz_bg_1,
         R.drawable.quiz_bg_2,
@@ -40,7 +37,7 @@ class QuizManagementAdapter(
     )
 
     private fun getImageFor(quiz: Quiz, position: Int): Int {
-        val titleLower = quiz.title.lowercase()
+        val titleLower = quiz.title?.lowercase() ?: ""
         for ((keywords, resId) in keywordImageMap) {
             if (keywords.any { titleLower.contains(it) }) return resId
         }
@@ -69,20 +66,33 @@ class QuizManagementAdapter(
         val quiz = quizzes[position]
 
         holder.quizImage.setImageResource(getImageFor(quiz, position))
-        holder.quizTitle.text         = quiz.title
-        holder.quizQuestionCount.text = "${quiz.questionCount ?: 0} Questions"
-        holder.quizDuration.text      = "${(quiz.questionCount ?: 0) * 2} Mins"
 
-        // Use first word of description as category badge, fallback to GENERAL
+        holder.quizTitle.text = quiz.title?.ifBlank { "Untitled Quiz" } ?: "Untitled Quiz"
+
+        val count = when {
+            quiz.questions.isNotEmpty() -> quiz.questions.size
+            else -> quiz.questionCount ?: 0
+        }
+        holder.quizQuestionCount.text = "$count Questions"
+
+        val mins = count * 2
+        holder.quizDuration.text = if (mins == 0) "— Mins" else "$mins Mins"
+
         holder.quizCategory.text = quiz.description
-            .trim()
-            .split(" ")
-            .firstOrNull()
+            ?.trim()
+            ?.split(" ")
+            ?.firstOrNull()
             ?.uppercase()
             ?.take(12)
             ?: "GENERAL"
 
         holder.quizStatus.text = "Published"
+
+        // ── Fix: ensure MaterialCardView receives click events ──
+        holder.btnEdit.isClickable   = true
+        holder.btnEdit.isFocusable   = true
+        holder.btnDelete.isClickable = true
+        holder.btnDelete.isFocusable = true
 
         holder.btnStart.setOnClickListener  { onStartClick(quiz)  }
         holder.btnEdit.setOnClickListener   { onEditClick(quiz)   }

@@ -3,6 +3,7 @@ package com.example.mobileforquizapp.quiz
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,9 +20,11 @@ class AdminQuizDetailActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: QuestionListAdapter
-    private lateinit var addQuestionBtn: MaterialButton  // NEW: was addQuestionFab
-    private lateinit var backBtn: ImageView              // NEW: was topAppBar (MaterialButton)
-    private lateinit var startQuizBtn: MaterialButton    // NEW: was startQuizButton
+    private lateinit var addQuestionBtn: MaterialButton
+    private lateinit var backBtn: ImageView
+    private lateinit var startQuizBtn: MaterialButton
+    private lateinit var totalQuestionsText: TextView
+
 
     private var quizId: Long = -1
     private var token: String? = null
@@ -35,6 +38,8 @@ class AdminQuizDetailActivity : AppCompatActivity() {
         addQuestionBtn = findViewById(R.id.addQuestionBtn)
         backBtn        = findViewById(R.id.backBtn)
         startQuizBtn   = findViewById(R.id.startQuizBtn)
+        totalQuestionsText = findViewById(R.id.totalQuestionsText)
+
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -135,11 +140,13 @@ class AdminQuizDetailActivity : AppCompatActivity() {
                         questions.clear()
                         questions.addAll(response.body() ?: emptyList())
                         adapter.notifyDataSetChanged()
+                        totalQuestionsText.text = adapter.itemCount.toString()
                     } else {
                         Toast.makeText(this@AdminQuizDetailActivity,
                             "Load failed (${response.code()})", Toast.LENGTH_SHORT).show()
                     }
                 }
+
                 override fun onFailure(call: Call<List<Question>>, t: Throwable) {
                     Toast.makeText(this@AdminQuizDetailActivity,
                         "Network error: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()

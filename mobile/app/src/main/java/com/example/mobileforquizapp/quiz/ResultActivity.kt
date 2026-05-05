@@ -10,7 +10,6 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
 
         val scoreText = findViewById<TextView>(R.id.scoreText)
-//        val feedbackText = findViewById<TextView>(R.id.feedbackText)
 
         val score = intent.getIntExtra("score", 0)
         val feedback = intent.getStringExtra("feedback") ?: ""
