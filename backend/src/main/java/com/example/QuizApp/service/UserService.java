@@ -13,10 +13,9 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder; // inject instead of new
+    private BCryptPasswordEncoder passwordEncoder; 
 
     public User saveUser(User user) {
-        // Hash the password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -25,7 +24,6 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    // Use this in your login endpoint instead of plain string comparison
     public boolean checkPassword(String rawPassword, String hashedPassword) {
         return passwordEncoder.matches(rawPassword, hashedPassword);
     }

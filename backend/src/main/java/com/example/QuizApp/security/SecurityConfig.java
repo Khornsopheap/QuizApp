@@ -21,33 +21,38 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login").permitAll()
 
-                        // ADMIN rules
+                        // ── Public endpoints first ──────────────────────────────
+                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/register").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
+
+                        // ── ADMIN-only write operations ─────────────────────────
                         .requestMatchers(HttpMethod.POST,   "/api/quizzes").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,    "/api/quizzes/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/quizzes/**").hasRole("ADMIN")
+
                         .requestMatchers(HttpMethod.POST,   "/api/questions").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,   "/api/questions/quiz/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,    "/api/questions/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/questions/**").hasRole("ADMIN")
-                        .requestMatchers("/api/login").permitAll()
-                        .requestMatchers("/api/register").permitAll()   // ← add this line
+
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // GET rules
-                        .requestMatchers(HttpMethod.GET, "/api/quizzes").hasAnyRole("USER","ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/quizzes/**").hasAnyRole("USER","ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/questions").hasAnyRole("USER","ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/questions/**").hasAnyRole("USER","ADMIN")
-                        .requestMatchers("/api/quizzes/*/submit").hasAnyRole("USER","ADMIN")
-
                         .requestMatchers(HttpMethod.POST, "/api/session/create/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/session/join/**").hasAnyRole("USER","ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/session/submit/**").hasAnyRole("USER","ADMIN")
-                        .requestMatchers(HttpMethod.GET,  "/api/session/leaderboard/**").hasAnyRole("USER","ADMIN")
-                        .requestMatchers("/ws/**").permitAll()
 
+                        // ── USER + ADMIN read & interact ────────────────────────
+                        .requestMatchers(HttpMethod.GET, "/api/quizzes").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/quizzes/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/questions").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/questions/**").hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/quizzes/*/submit").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/session/join/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/session/submit/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET,  "/api/session/leaderboard/**").hasAnyRole("USER", "ADMIN")
+
+                        // ── Everything else requires authentication ──────────────
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);

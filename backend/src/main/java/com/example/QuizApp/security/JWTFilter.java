@@ -23,8 +23,6 @@ public class JWTFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
 
-
-// ADD THIS TOO
         System.out.println("DEBUG incoming header: " + header);
         System.out.println("DEBUG request URI: " + request.getRequestURI());
         System.out.println("DEBUG request method: " + request.getMethod());
