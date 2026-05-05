@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileforquizapp.R
@@ -16,24 +15,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class QuizManagementActivity : AppCompatActivity() {
+class QuizManagementActivity : BaseActivity() {
+
+    override fun currentNavItem() = NAV_QUIZZES
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: QuizManagementAdapter
     private lateinit var fabAddQuiz: FloatingActionButton
-    private var token: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_management)
 
-        token = getSharedPreferences("MyApp", MODE_PRIVATE)
-            .getString("jwt_token", null)
-            ?: intent.getStringExtra("jwt_token")
+        setupNav()
 
         recyclerView = findViewById(R.id.quizManagementRecyclerView)
         fabAddQuiz   = findViewById(R.id.fabAddQuiz)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = QuizManagementAdapter(
@@ -41,19 +38,20 @@ class QuizManagementActivity : AppCompatActivity() {
             onStartClick  = { quiz ->
                 startActivity(
                     Intent(this, AdminQuizDetailActivity::class.java).apply {
-                        putExtra("quiz_id", quiz.id)
+                        putExtra("quiz_id",   quiz.id)
                         putExtra("jwt_token", token)
                     }
                 )
             },
-            onEditClick   = { quiz ->
+            onEditClick = { quiz ->
+                // ✅ Fixed: go to CreateQuizActivity in EDIT mode
                 startActivity(
                     Intent(this, CreateQuizActivity::class.java).apply {
-                        putExtra("quiz_id",          quiz.id)
-                        putExtra("jwt_token", token)
-                        putExtra("quiz_title",        quiz.title)
-                        putExtra("quiz_description",  quiz.description)
-                        putExtra("jwt_token",         token)
+                        putExtra("quiz_id",         quiz.id)
+                        putExtra("jwt_token",        token)
+                        putExtra("quiz_title",       quiz.title)
+                        putExtra("quiz_description", quiz.description)
+                        putExtra("edit_mode",        true)   // flag so CreateQuizActivity knows it's editing
                     }
                 )
             },
@@ -67,6 +65,7 @@ class QuizManagementActivity : AppCompatActivity() {
             startActivity(
                 Intent(this, CreateQuizActivity::class.java).apply {
                     putExtra("jwt_token", token)
+                    // no quiz_id → CreateQuizActivity treats this as a new quiz
                 }
             )
         }
@@ -79,18 +78,21 @@ class QuizManagementActivity : AppCompatActivity() {
         loadQuizzes()
     }
 
-    // ── Delete confirm dialog ──────────────────────────────────────────────
     private fun showDeleteConfirmDialog(quiz: Quiz) {
         AlertDialog.Builder(this)
             .setTitle("Delete Quiz")
-            .setMessage("Are you sure you want to delete \"${quiz.title}\"?\nThis cannot be undone.")
+            .setMessage("Delete \"${quiz.title}\"?\nThis cannot be undone.")
             .setPositiveButton("Delete") { _, _ -> deleteQuiz(quiz) }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
     private fun deleteQuiz(quiz: Quiz) {
-        val id = quiz.id ?: return
+        val id = quiz.id ?: run {
+            Toast.makeText(this, "Invalid quiz ID.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         RetrofitClient.apiService.deleteQuiz("Bearer $token", id)
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -100,7 +102,7 @@ class QuizManagementActivity : AppCompatActivity() {
                             "\"${quiz.title}\" deleted.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        loadQuizzes() // refresh list
+                        loadQuizzes()
                     } else {
                         Toast.makeText(
                             this@QuizManagementActivity,
@@ -109,6 +111,7 @@ class QuizManagementActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
+
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     Toast.makeText(
                         this@QuizManagementActivity,
@@ -119,7 +122,6 @@ class QuizManagementActivity : AppCompatActivity() {
             })
     }
 
-    // ── Load quizzes + update stats ────────────────────────────────────────
     private fun loadQuizzes() {
         RetrofitClient.apiService.getQuizzes("Bearer $token")
             .enqueue(object : Callback<List<Quiz>> {
@@ -131,19 +133,19 @@ class QuizManagementActivity : AppCompatActivity() {
                         val quizzes = response.body() ?: emptyList()
                         adapter.updateList(quizzes)
 
-                        // Update stat cards
-                        findViewById<TextView>(R.id.tvStatTotal).text    = quizzes.size.toString()
-                        findViewById<TextView>(R.id.tvStatActive).text   = quizzes.size.toString()
+                        findViewById<TextView>(R.id.tvStatTotal).text     = quizzes.size.toString()
+                        findViewById<TextView>(R.id.tvStatActive).text    = quizzes.size.toString()
                         findViewById<TextView>(R.id.tvStatQuestions).text =
                             quizzes.sumOf { it.questionCount ?: 0 }.toString()
                     } else {
                         Toast.makeText(
                             this@QuizManagementActivity,
-                            "Failed (${response.code()})",
+                            "Failed to load quizzes (${response.code()})",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
+
                 override fun onFailure(call: Call<List<Quiz>>, t: Throwable) {
                     Toast.makeText(
                         this@QuizManagementActivity,

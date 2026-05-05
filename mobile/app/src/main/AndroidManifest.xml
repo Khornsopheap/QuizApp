@@ -48,6 +48,11 @@
         <activity android:name=".quiz.QuizListActivity" />
 
         <activity android:name=".quiz.QuizManagementActivity" />
+        <activity android:name=".quiz.ProfileActivity" />
+        <activity android:name=".quiz.UserResultsActivity" />
+        <activity android:name=".quiz.UserProfileActivity" />
+
+
 
     </application>
 </manifest>
