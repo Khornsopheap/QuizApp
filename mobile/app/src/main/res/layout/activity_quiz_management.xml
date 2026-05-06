@@ -37,7 +37,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-bold"
-                android:text="EduQuiz Admin"
+                android:text="Admin"
                 android:textColor="@color/primary"
                 android:textSize="18sp" />
             <ImageView

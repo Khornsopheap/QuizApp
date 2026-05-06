@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/quiz_background"
     android:fillViewport="true">
 
     <LinearLayout
@@ -12,147 +11,282 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Visual Header -->
+        <!-- Hero Header -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@color/secondary">
-            
+            android:layout_height="260dp"
+            android:background="@color/quiz_purple">
+
             <View
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_gravity="bottom|start"
-                android:layout_marginStart="-60dp"
-                android:layout_marginBottom="-60dp"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="-60dp"
+                android:layout_marginEnd="-60dp"
                 android:background="@drawable/rank_badge_bg"
-                android:backgroundTint="@color/white_10" />
+                android:backgroundTint="#14FFFFFF" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="-30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rank_badge_bg"
+                android:backgroundTint="#0AFFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="24dp">
-                
+                android:gravity="bottom"
+                android:padding="28dp"
+                android:paddingTop="52dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="14dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#26FFFFFF"
+                    app:strokeWidth="0dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/white" />
+                </com.google.android.material.card.MaterialCardView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Join the Quest"
-                    android:textSize="32sp"
+                    android:text="Create account"
+                    android:textSize="28sp"
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Create your EduQuiz account"
-                    android:textSize="14sp"
-                    android:textColor="@color/white_60" />
+                    android:layout_marginTop="4dp"
+                    android:text="Join EduQuiz and start learning today"
+                    android:textSize="13sp"
+                    android:textColor="#B3FFFFFF" />
+
             </LinearLayout>
         </FrameLayout>
 
-        <!-- Form Section -->
+        <!-- Form Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-24dp"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/quiz_surface"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <!-- Role label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I AM A"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorPrimary"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Pill role selector container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_role_selector"
+                    android:layout_marginBottom="24dp"
+                    android:padding="4dp"
+                    android:orientation="horizontal">
+
+                    <!-- Student chip -->
+                    <LinearLayout
+                        android:id="@+id/chipUser"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:background="@drawable/chip_selected_bg">
+
+                        <ImageView
+                            android:id="@+id/iconStudent"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_person"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tvStudent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Student"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-bold"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <!-- Teacher chip -->
+                    <LinearLayout
+                        android:id="@+id/chipAdmin"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:background="@android:color/transparent">
+
+                        <ImageView
+                            android:id="@+id/iconTeacher"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_quiz"
+                            app:tint="@color/quiz_text_secondary" />
+
+                        <TextView
+                            android:id="@+id/tvTeacher"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teacher"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-bold"
+                            android:textColor="@color/quiz_text_secondary" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Full Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FULL NAME"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorPrimary"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your full name"
+                    style="@style/Widget.QuizApp.TextInputLayout"
+                    android:layout_marginBottom="20dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PASSWORD"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorPrimary"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Create a password"
+                    style="@style/Widget.QuizApp.TextInputLayout"
+                    app:endIconMode="password_toggle"
+                    android:layout_marginBottom="20dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Confirm Password -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONFIRM PASSWORD"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorPrimary"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Repeat your password"
+                    style="@style/Widget.QuizApp.TextInputLayout"
+                    app:endIconMode="password_toggle"
+                    android:layout_marginBottom="28dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Register Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Create account"
+                    android:textAllCaps="false"
+                    android:textAppearance="?attr/textAppearanceLabelLarge"
+                    style="@style/Widget.Material3.Button"
+                    app:cornerRadius="100dp"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="end"
+                    app:iconTint="@color/white"
+                    app:iconSize="20dp"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Sign In Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-30dp"
-            android:padding="32dp"
-            android:background="@drawable/bg_form_container"
-            android:elevation="8dp"
-            android:orientation="vertical">
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <!-- Role Selection (Syncing missing original feature) -->
-            <com.google.android.material.chip.ChipGroup
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="24dp"
-                app:singleSelection="true">
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Student"
-                    android:checked="true"
-                    style="@style/EduQuizChip" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipAdmin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Teacher"
-                    style="@style/EduQuizChip" />
-            </com.google.android.material.chip.ChipGroup>
+                android:text="Already have an account? "
+                android:textColor="@color/quiz_text_secondary"
+                android:textSize="14sp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Full Name"
-                style="@style/EduQuizInput"
-                android:layout_marginBottom="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                style="@style/EduQuizInput"
-                app:endIconMode="password_toggle"
-                android:layout_marginBottom="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Confirm Password"
-                style="@style/EduQuizInput"
-                app:endIconMode="password_toggle"
-                android:layout_marginBottom="32dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etConfirmPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegister"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:text="Create Account"
-                style="@style/Widget.Material3.Button"
-                app:backgroundTint="@color/primary"
-                app:cornerRadius="100dp" />
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvGoLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Have an account? "
-                    android:textColor="@color/on_surface_variant" />
-                <TextView
-                    android:id="@+id/tvGoLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sign In"
-                    android:textColor="@color/primary"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:fontFamily="sans-serif-bold"
+                android:text="Sign in"
+                android:textColor="@color/quiz_purple"
+                android:textSize="14sp" />
 
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
